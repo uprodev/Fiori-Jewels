@@ -298,8 +298,8 @@ jQuery(document).ready(function ($) {
     $from2 = $(".js-from-2"),
     $to2 = $(".js-to-2"),
     range2,
-    min2 = 0.007,
-    max2 = 96,
+    min2 = 300,
+    max2 = 2430000,
     from2,
     to2;
 
@@ -313,7 +313,7 @@ jQuery(document).ready(function ($) {
     min: min2,
     skin: "round",
     max: max2,
-    step:0.001,
+    step:100,
     hide_min_max: true,
     hide_from_to: true,
     prettify_enabled: false,
@@ -490,4 +490,95 @@ jQuery(document).ready(function ($) {
 
   });
 
+
+  /*slider*/
+  var swiperP1 = new Swiper(".slider-p-1", {
+    effect: "fade",
+
+    scrollbar: {
+      el: ".swiper-scrollbar-1",
+      hide: false,
+      draggable: true,
+    },
+  });
+  var swiperP2 = new Swiper(".slider-p-2", {
+    effect: "fade",
+
+    scrollbar: {
+      el: ".swiper-scrollbar-2",
+      hide: false,
+      draggable: true,
+    },
+  });
+  var swiperP3 = new Swiper(".slider-p-3", {
+    effect: "fade",
+
+    scrollbar: {
+      el: ".swiper-scrollbar-3",
+      hide: false,
+      draggable: true,
+    },
+  });
+
+  /*show info product (catalog page)*/
+  $(document).on('click', '.catalog .product-line', function (e){
+    e.preventDefault();
+    $(this).toggleClass('is-open');
+    if($(this).hasClass('is-open')){
+      $(this).children('.detail').slideDown();
+    }else{
+      $(this).children('.detail').slideUp();
+    }
+  })
+
+  /*mask*/
+  //$('.money').mask('000 000 000', {reverse: true});
+
+  /*popup*/
+  $(".fancybox").fancybox({
+    touch:false,
+    autoFocus:false,
+  });
+
+
+ /* open filter*/
+  $(document).on('click', '.filter-popup .item h6', function (e){
+    e.preventDefault();
+    let item = $(this).closest('.item');
+    item.toggleClass('is-open');
+    if(item.hasClass('is-open')){
+      item.find('.wrap').slideDown();
+    }else{
+      item.find('.wrap').slideUp();
+    }
+  });
+
+  var input = document.querySelector("#code-tel");
+  window.intlTelInput(input, {
+    //allowDropdown: true,
+    //autoHideDialCode: true,
+    // autoPlaceholder: "off",
+    // dropdownContainer: document.body,
+    // excludeCountries: ["ru"],
+    // formatOnDisplay: false,
+    /*    geoIpLookup: function(callback) {
+          $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+            var countryCode = (resp && resp.country) ? resp.country : "";
+            callback(countryCode);
+          });
+        },*/
+    // hiddenInput: "full_number",
+    //initialCountry: "auto",
+    //localizedCountries: { 'de': 'Deutschland' },
+    // nationalMode: false,
+    // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+    // placeholderNumberType: "MOBILE",
+    //preferredCountries: ['us'],
+    InitialCountry: "",
+    separateDialCode: true,
+
+  });
+
+
+  $('#code-tel').mask("0 000 0000", {placeholder: "0 000 0000"});
 });
