@@ -550,35 +550,70 @@ jQuery(document).ready(function ($) {
       item.find('.wrap').slideDown();
     }else{
       item.find('.wrap').slideUp();
+
     }
   });
 
-  var input = document.querySelector("#code-tel");
-  window.intlTelInput(input, {
-    //allowDropdown: true,
-    //autoHideDialCode: true,
-    // autoPlaceholder: "off",
-    // dropdownContainer: document.body,
-    // excludeCountries: ["ru"],
-    // formatOnDisplay: false,
-    /*    geoIpLookup: function(callback) {
-          $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-            var countryCode = (resp && resp.country) ? resp.country : "";
-            callback(countryCode);
-          });
-        },*/
-    // hiddenInput: "full_number",
-    //initialCountry: "auto",
-    //localizedCountries: { 'de': 'Deutschland' },
-    // nationalMode: false,
-    // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-    // placeholderNumberType: "MOBILE",
-    //preferredCountries: ['us'],
-    InitialCountry: "",
-    separateDialCode: true,
+  /*code tel*/
 
+  if($('#code-tel').length > 0){
+    var input = document.querySelector("#code-tel");
+    window.intlTelInput(input, {
+      //allowDropdown: true,
+      //autoHideDialCode: true,
+      // autoPlaceholder: "off",
+      // dropdownContainer: document.body,
+      // excludeCountries: ["ru"],
+      // formatOnDisplay: false,
+      /*    geoIpLookup: function(callback) {
+            $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+              var countryCode = (resp && resp.country) ? resp.country : "";
+              callback(countryCode);
+            });
+          },*/
+      // hiddenInput: "full_number",
+      //initialCountry: "auto",
+      //localizedCountries: { 'de': 'Deutschland' },
+      // nationalMode: false,
+      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+      // placeholderNumberType: "MOBILE",
+      //preferredCountries: ['us'],
+      InitialCountry: "",
+      separateDialCode: true,
+
+    });
+  }
+
+
+  /*mask*/
+  $('#code-tel').mask("0 000 0000", {placeholder: "0 000 0000"});
+
+
+  /*open item step-2*/
+  if(window.innerWidth < 576){
+    $(document).on('click', '.test-wrap .step-2-content h1', function (e){
+      e.preventDefault();
+      let item = $(this);
+      item.toggleClass('is-open');
+      if(item.hasClass('is-open')){
+        $('.test-wrap .step-2-content .left .item').slideDown();
+      }else{
+        $('.test-wrap .step-2-content .left .item').slideUp();
+      }
+    });
+  }
+
+
+  /*open filter*/
+  $(document).on('click', '.filter-btn', function (e){
+    e.preventDefault();
+   $('.catalog-product .filter-block').slideDown();
   });
 
+  /*close filter*/
+  $(document).on('click', '.close-filter-block', function (e){
+    e.preventDefault();
+    $('.catalog-product .filter-block').slideUp();
+  });
 
-  $('#code-tel').mask("0 000 0000", {placeholder: "0 000 0000"});
 });
