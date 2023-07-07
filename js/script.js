@@ -521,13 +521,13 @@ jQuery(document).ready(function ($) {
   });
 
   /*show info product (catalog page)*/
-  $(document).on('click', '.catalog .product-line', function (e){
+  $(document).on('click', '.catalog .product-line .info', function (e){
     e.preventDefault();
     $(this).toggleClass('is-open');
     if($(this).hasClass('is-open')){
-      $(this).children('.detail').slideDown();
+      $(this).siblings('.detail').slideDown();
     }else{
-      $(this).children('.detail').slideUp();
+      $(this).siblings('.detail').slideUp();
     }
   })
 
@@ -607,7 +607,16 @@ jQuery(document).ready(function ($) {
   /*open filter*/
   $(document).on('click', '.filter-btn', function (e){
     e.preventDefault();
-   $('.catalog-product .filter-block').slideDown();
+
+    if(window.innerWidth > 767){
+      $('.catalog-product .filter-block').slideDown();
+    }else{
+      $.fancybox.open( $('#filter-popup'), {
+        touch:false,
+        autoFocus:false,
+      });
+    }
+
   });
 
   /*close filter*/
