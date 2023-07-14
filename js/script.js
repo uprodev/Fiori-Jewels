@@ -220,275 +220,293 @@ jQuery(document).ready(function ($) {
   })(jQuery);
   $(".tabs").lightTabs();
 
+
   //RANGE
 
-  var $range = $(".js-range-slider"),
-    $from = $(".js-from"),
-    $to = $(".js-to"),
-    range,
-    min = 0.05,
-    max = 11,
-    from,
-    to;
+  if($('.js-range-slider').length > 0){
+    var $range = $(".js-range-slider"),
+      $from = $(".js-from"),
+      $to = $(".js-to"),
+      range,
+      min = 0.05,
+      max = 11,
+      from,
+      to;
 
-  var updateValues = function () {
-    $from.prop("value", from);
-    $to.prop("value", to);
-  };
+    var updateValues = function () {
+      $from.prop("value", from);
+      $to.prop("value", to);
+    };
 
-  $range.ionRangeSlider({
-    type: "double",
-    min: min,
-    max: max,
-    step:0.05,
-    skin: "round",
-    hide_min_max: true,
-    hide_from_to: true,
-    prettify_enabled: false,
-    onChange: function (data) {
-      from = data.from;
-      to = data.to;
-      updateValues();
+    $range.ionRangeSlider({
+      type: "double",
+      min: min,
+      max: max,
+      step:0.05,
+      skin: "round",
+      hide_min_max: true,
+      hide_from_to: true,
+      prettify_enabled: false,
+      onChange: function (data) {
+        from = data.from;
+        to = data.to;
+        updateValues();
 
-    }
-  });
-
-  range = $range.data("ionRangeSlider");
-
-  var updateRange = function () {
-    range.update({
-      from: from,
-      to: to
+      }
     });
 
-  };
+    range = $range.data("ionRangeSlider");
 
-  $from.on("change", function () {
+    var updateRange = function () {
+      range.update({
+        from: from,
+        to: to
+      });
 
-    from = +$(this).prop("value");
-    if (from < min) {
-      from = min;
-    }
-    if (from > to) {
-      from = to;
-    }
+    };
 
-    updateValues();
-    updateRange();
-  });
+    $from.on("change", function () {
 
-  $to.on("change", function () {
-    to = +$(this).prop("value");
-    if (to > max) {
-      to = max;
-    }
-    if (to < from) {
-      to = from;
-    }
+      from = +$(this).prop("value");
+      if (from < min) {
+        from = min;
+      }
+      if (from > to) {
+        from = to;
+      }
 
-    updateValues();
-    updateRange();
-  });
+      updateValues();
+      updateRange();
+    });
+
+    $to.on("change", function () {
+      to = +$(this).prop("value");
+      if (to > max) {
+        to = max;
+      }
+      if (to < from) {
+        to = from;
+      }
+
+      updateValues();
+      updateRange();
+    });
+  }
+
+
 
 
 
   //RANGE 2
 
-  var $range2 = $(".js-range-slider-2"),
-    $from2 = $(".js-from-2"),
-    $to2 = $(".js-to-2"),
-    range2,
-    min2 = 300,
-    max2 = 2430000,
-    from2,
-    to2;
+  if($('.js-range-slider-2').length > 0){
 
-  var updateValues2 = function () {
-    $from2.prop("value", from2);
-    $to2.prop("value", to2);
-  };
+    var $range2 = $(".js-range-slider-2"),
+      $from2 = $(".js-from-2"),
+      $to2 = $(".js-to-2"),
+      range2,
+      min2 = 300,
+      max2 = 2430000,
+      from2,
+      to2;
 
-  $range2.ionRangeSlider({
-    type: "double",
-    min: min2,
-    skin: "round",
-    max: max2,
-    step:100,
-    hide_min_max: true,
-    hide_from_to: true,
-    prettify_enabled: false,
-    onChange: function (data) {
-      from2 = data.from;
-      to2 = data.to;
-      updateValues2();
+    var updateValues2 = function () {
+      $from2.prop("value", from2);
+      $to2.prop("value", to2);
+    };
 
-    }
-  });
+    $range2.ionRangeSlider({
+      type: "double",
+      min: min2,
+      skin: "round",
+      max: max2,
+      step:100,
+      hide_min_max: true,
+      hide_from_to: true,
+      prettify_enabled: false,
+      onChange: function (data) {
+        from2 = data.from;
+        to2 = data.to;
+        updateValues2();
 
-  range2 = $range2.data("ionRangeSlider");
-
-  var updateRange2 = function () {
-    range2.update({
-      from: from2,
-      to: to2
+      }
     });
 
-  };
+    range2 = $range2.data("ionRangeSlider");
 
-  $from2.on("change", function () {
+    var updateRange2 = function () {
+      range2.update({
+        from: from2,
+        to: to2
+      });
 
-    from2 = +$(this).prop("value");
-    if (from2 < min2) {
-      from2 = min2;
-    }
-    if (from2 > to2) {
-      from2 = to2;
-    }
+    };
 
-    updateValues2();
-    updateRange2();
-  });
+    $from2.on("change", function () {
 
-  $to2.on("change", function () {
-    to2 = +$(this).prop("value");
-    if (to2 > max2) {
-      to2 = max2;
-    }
-    if (to2 < from2) {
-      to2 = from2;
-    }
+      from2 = +$(this).prop("value");
+      if (from2 < min2) {
+        from2 = min2;
+      }
+      if (from2 > to2) {
+        from2 = to2;
+      }
 
-    updateValues2();
-    updateRange2();
-  });
+      updateValues2();
+      updateRange2();
+    });
+
+    $to2.on("change", function () {
+      to2 = +$(this).prop("value");
+      if (to2 > max2) {
+        to2 = max2;
+      }
+      if (to2 < from2) {
+        to2 = from2;
+      }
+
+      updateValues2();
+      updateRange2();
+    });
+
+  }
+
 
 
   //RANGE 3
 
-  let $range3 = $('.js-range-slider-3')
-  $range3.ionRangeSlider({
-    type: "double",
-    min: 1,
-    skin: "round",
-    max:4,
-    step:1,
-    hide_min_max: true,
-    hide_from_to: true,
-    prettify_enabled: false,
-    grid: false,
-    min_interval:1,
+  if($('.js-range-slider-3').length > 0){
+    let $range3 = $('.js-range-slider-3')
+    $range3.ionRangeSlider({
+      type: "double",
+      min: 1,
+      skin: "round",
+      max:4,
+      step:1,
+      hide_min_max: true,
+      hide_from_to: true,
+      prettify_enabled: false,
+      grid: false,
+      min_interval:1,
 
-  });
+    });
 
-  $range3.on("change", function () {
-    var $inp = $(this);
-    var from = $inp.prop("value"); // reading input value
-    console.log(from); // FROM value
-  });
+    $range3.on("change", function () {
+      var $inp = $(this);
+      var from = $inp.prop("value"); // reading input value
+      console.log(from); // FROM value
+    });
 
-  $range3.on("change", function () {
-    var $inp = $(this);
-    var from = $inp.prop("value"); // reading input value
-    let firstSelect = from.slice(0, 1);
-    let lastSelect = from.slice(2);
-    if(firstSelect == 2 && lastSelect == 4){
-      $('.label-4>div').removeClass().addClass('hide-1')
-    }else if(firstSelect == 3 && lastSelect == 4){
-      $('.label-4>div').removeClass().addClass('hide-2')
-    } else if(firstSelect == 1 && lastSelect == 3){
-      $('.label-4>div').removeClass().addClass('hide-3')
-    }else if(firstSelect == 1 && lastSelect == 2){
-      $('.label-4>div').removeClass().addClass('hide-4')
-    }else if(firstSelect == 2 && lastSelect == 3){
-      $('.label-4>div').removeClass().addClass('hide-5')
-    }else if(firstSelect == 1 && lastSelect == 4){
-      $('.label-4>div').removeClass()
-    }
+    $range3.on("change", function () {
+      var $inp = $(this);
+      var from = $inp.prop("value"); // reading input value
+      let firstSelect = from.slice(0, 1);
+      let lastSelect = from.slice(2);
+      if(firstSelect == 2 && lastSelect == 4){
+        $('.label-4>div').removeClass().addClass('hide-1')
+      }else if(firstSelect == 3 && lastSelect == 4){
+        $('.label-4>div').removeClass().addClass('hide-2')
+      } else if(firstSelect == 1 && lastSelect == 3){
+        $('.label-4>div').removeClass().addClass('hide-3')
+      }else if(firstSelect == 1 && lastSelect == 2){
+        $('.label-4>div').removeClass().addClass('hide-4')
+      }else if(firstSelect == 2 && lastSelect == 3){
+        $('.label-4>div').removeClass().addClass('hide-5')
+      }else if(firstSelect == 1 && lastSelect == 4){
+        $('.label-4>div').removeClass()
+      }
 
-  });
+    });
+  }
+
+
 
   //RANGE 4
+  if($('.js-range-slider-4').length > 0){
+    let $range4 = $('.js-range-slider-4')
+    $range4.ionRangeSlider({
+      type: "double",
+      min: 1,
+      skin: "round",
+      max: 4,
+      step:1,
+      hide_min_max: true,
+      hide_from_to: true,
+      prettify_enabled: false,
+      grid: false,
+      min_interval:1,
 
+    });
 
-  let $range4 = $('.js-range-slider-4')
-  $range4.ionRangeSlider({
-    type: "double",
-    min: 1,
-    skin: "round",
-    max: 4,
-    step:1,
-    hide_min_max: true,
-    hide_from_to: true,
-    prettify_enabled: false,
-    grid: false,
-    min_interval:1,
+    $range4.on("change", function () {
+      var $inp = $(this);
+      var from = $inp.prop("value"); // reading input value
+      console.log(from); // FROM value
+    });
 
-  });
+    $range4.on("change", function () {
+      var $inp = $(this);
+      var from = $inp.prop("value"); // reading input value
+      let firstSelect = from.slice(0, 1);
+      let lastSelect = from.slice(2);
+      if(firstSelect == 2 && lastSelect == 4){
+        $('.label-5>div').removeClass().addClass('hide-1')
+      }else if(firstSelect == 3 && lastSelect == 4){
+        $('.label-5>div').removeClass().addClass('hide-2')
+      } else if(firstSelect == 1 && lastSelect == 3){
+        $('.label-5>div').removeClass().addClass('hide-3')
+      }else if(firstSelect == 1 && lastSelect == 2){
+        $('.label-5>div').removeClass().addClass('hide-4')
+      }else if(firstSelect == 2 && lastSelect == 3){
+        $('.label-5>div').removeClass().addClass('hide-5')
+      }else if(firstSelect == 1 && lastSelect == 4){
+        $('.label-5>div').removeClass()
+      }
 
-  $range4.on("change", function () {
-    var $inp = $(this);
-    var from = $inp.prop("value"); // reading input value
-    console.log(from); // FROM value
-  });
+    });
 
-  $range4.on("change", function () {
-    var $inp = $(this);
-    var from = $inp.prop("value"); // reading input value
-    let firstSelect = from.slice(0, 1);
-    let lastSelect = from.slice(2);
-    if(firstSelect == 2 && lastSelect == 4){
-      $('.label-5>div').removeClass().addClass('hide-1')
-    }else if(firstSelect == 3 && lastSelect == 4){
-      $('.label-5>div').removeClass().addClass('hide-2')
-    } else if(firstSelect == 1 && lastSelect == 3){
-      $('.label-5>div').removeClass().addClass('hide-3')
-    }else if(firstSelect == 1 && lastSelect == 2){
-      $('.label-5>div').removeClass().addClass('hide-4')
-    }else if(firstSelect == 2 && lastSelect == 3){
-      $('.label-5>div').removeClass().addClass('hide-5')
-    }else if(firstSelect == 1 && lastSelect == 4){
-      $('.label-5>div').removeClass()
-    }
+  }
 
-  });
 
   //RANGE 5
+  if($('.js-range-slider-5').length > 0){
 
+    let $range5 = $('.js-range-slider-5')
+    $range5.ionRangeSlider({
+      type: "double",
+      min: 1,
+      skin: "round",
+      max: 4,
+      step:1,
+      hide_min_max: true,
+      hide_from_to: true,
+      prettify_enabled: false,
+      grid: false,
+      min_interval:1,
+    });
 
-  let $range5 = $('.js-range-slider-5')
-  $range5.ionRangeSlider({
-    type: "double",
-    min: 1,
-    skin: "round",
-    max: 4,
-    step:1,
-    hide_min_max: true,
-    hide_from_to: true,
-    prettify_enabled: false,
-    grid: false,
-    min_interval:1,
-  });
+    $range5.on("change", function () {
+      var $inp = $(this);
+      var from = $inp.prop("value"); // reading input value
+      let firstSelect = from.slice(0, 1);
+      let lastSelect = from.slice(2);
+      if(firstSelect == 2 && lastSelect == 4){
+        $('.label-6>div').removeClass().addClass('hide-1')
+      }else if(firstSelect == 3 && lastSelect == 4){
+        $('.label-6>div').removeClass().addClass('hide-2')
+      } else if(firstSelect == 1 && lastSelect == 3){
+        $('.label-6>div').removeClass().addClass('hide-3')
+      }else if(firstSelect == 1 && lastSelect == 2){
+        $('.label-6>div').removeClass().addClass('hide-4')
+      }else if(firstSelect == 2 && lastSelect == 3){
+        $('.label-6>div').removeClass().addClass('hide-5')
+      }else if(firstSelect == 1 && lastSelect == 4){
+        $('.label-6>div').removeClass()
+      }
 
-  $range5.on("change", function () {
-    var $inp = $(this);
-    var from = $inp.prop("value"); // reading input value
-    let firstSelect = from.slice(0, 1);
-    let lastSelect = from.slice(2);
-    if(firstSelect == 2 && lastSelect == 4){
-      $('.label-6>div').removeClass().addClass('hide-1')
-    }else if(firstSelect == 3 && lastSelect == 4){
-      $('.label-6>div').removeClass().addClass('hide-2')
-    } else if(firstSelect == 1 && lastSelect == 3){
-      $('.label-6>div').removeClass().addClass('hide-3')
-    }else if(firstSelect == 1 && lastSelect == 2){
-      $('.label-6>div').removeClass().addClass('hide-4')
-    }else if(firstSelect == 2 && lastSelect == 3){
-      $('.label-6>div').removeClass().addClass('hide-5')
-    }else if(firstSelect == 1 && lastSelect == 4){
-      $('.label-6>div').removeClass()
-    }
+    });
+  }
 
-  });
 
 
   /*slider*/
@@ -601,7 +619,34 @@ jQuery(document).ready(function ($) {
         $('.test-wrap .step-2-content .left .item').slideUp();
       }
     });
-  }
+  };
+
+  /*open address*/
+  if(window.innerWidth < 576){
+    $(document).on('click', '.duration h1', function (e){
+      e.preventDefault();
+      let item = $(this);
+      item.toggleClass('is-open');
+      if(item.hasClass('is-open')){
+        $('.duration .left .item').slideDown();
+      }else{
+        $('.duration .left .item').slideUp();
+      }
+    });
+  };
+
+  /*accordion */
+  $(document).on('click', '.catalog .detail ul li .flex', function (e){
+    e.preventDefault();
+    let item = $(this).closest('li');
+    item.toggleClass('is-open');
+    if(item.hasClass('is-open')){
+      item.find('.info-accordion').slideDown();
+    }else{
+      item.find('.info-accordion').slideUp();
+    }
+  });
+
 
 
   /*open filter*/
@@ -616,7 +661,20 @@ jQuery(document).ready(function ($) {
         autoFocus:false,
       });
     }
+  });
 
+
+
+  /*open info*/
+  $(document).on('click', '.product-block .details > h6', function (e){
+    e.preventDefault();
+    let item = $(this).closest('.details');
+    item.toggleClass('is-open');
+    if(item.hasClass('is-open')){
+      item.find('.content-details').slideDown();
+    }else{
+      item.find('.content-details').slideUp();
+    }
   });
 
   /*close filter*/
@@ -624,5 +682,141 @@ jQuery(document).ready(function ($) {
     e.preventDefault();
     $('.catalog-product .filter-block').slideUp();
   });
+
+
+ /* slider*/
+  var swiperInnerProduct = new Swiper(".slider-inner-product", {
+    slidesPerView: 1.9,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: ".inner-product-next",
+      prevEl: ".inner-product-prev",
+    },
+    breakpoints: {
+      575: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      991: {
+        slidesPerView: 1,
+        spaceBetween: 20,
+      },
+      1601: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+    },
+  });
+
+ /* scroll to block*/
+  $(document).on('click', '.scroll-to', function (e) {
+    e.preventDefault();
+    var id  = $(this).attr('href'),
+      top = $(id).offset().top;
+    $('body,html').animate({scrollTop: top}, 1000);
+  });
+
+  /*slider*/
+  var swiperProductImg = new Swiper(".mob-product-img", {
+    pagination: {
+      el: ".mob-product-pagination",
+      clickable: true,
+    },
+  });
+
+  /*col shopping*/
+  $(".btn-count-plus").click(function () {
+    var e = $(this).parent().find("input");
+    return e.val(parseInt(e.val()) + 1), e.change(), !1
+  }), $(".btn-count-minus").click(function () {
+    var e = $(this).parent().find("input"), t = parseInt(e.val()) - 1;
+    return t = t < 1 ? 1 : t, e.val(t), e.change(), !1
+  });
+
+
+  /*show/hide content checkout*/
+  $(document).on('click', '.shopping .mob-change-block h6', function (e) {
+    e.preventDefault();
+    $(this).toggleClass('is-open');
+    $('.shopping').toggleClass('is-show');
+  });
+
+  /*change input*/
+  $(document).on('click', '.input-wrap .change', function (e) {
+    e.preventDefault();
+    $(this).toggleClass('is-edit');
+    if($(this).hasClass('is-edit')){
+      $(this).siblings('input').prop( "disabled", false );
+    }else{
+      $(this).siblings('input').prop( "disabled", true );
+    }
+  });
+
+  /*copy code*/
+  $(document).on('click', '.copy-code', function (e) {
+    let text = $(this).text();
+    var input = $('<textarea>').val(text).appendTo('body').select();
+    document.execCommand('copy');
+    input.remove();
+
+    $('.btn-wrap .copy').show(200);
+
+    setTimeout(function() {
+      $('.btn-wrap .copy').hide(200);
+    }, 2000);
+  });
+
+  /*cabinet mob*/
+  $(document).on('click', '.cabinet .item-data .edit h6', function (e) {
+    e.preventDefault();
+
+    if(window.innerWidth <768){
+      $(this).toggleClass('is-open');
+
+      if($(this).hasClass('is-open')){
+        $('.cabinet .item-data .edit .is-open + .mob-wrap-edit-1').slideDown();
+        $('.cabinet .item-data .edit .is-open + .mob-wrap-edit-2').slideDown();
+      }else{
+        $('.cabinet .item-data .edit .is-open + .mob-wrap-edit-1').slideUp();
+        $('.cabinet .item-data .edit .is-open + .mob-wrap-edit-2').slideUp();
+      }
+    }
+
+  });
+
+
+ /* open edit cabinet*/
+  $(document).on('click', '.edit-personal-data', function (e) {
+    e.preventDefault();
+    $('.cabinet .item-data .no-edit').slideUp();
+    $('.cabinet .item-data .edit').slideDown();
+
+  });
+
+
+  /*cabinet open order*/
+  $(document).on('click', '.total-order', function (e) {
+    e.preventDefault();
+    $(this).toggleClass('is-open');
+    if($(this).hasClass('is-open')){
+      $(this).closest('.order-item').find('.info-order').slideDown();
+    }else{
+      $(this).closest('.order-item').find('.info-order').slideUp();
+    }
+
+  });
+
+  /*back info cabinet*/
+  $(document).on('click', '.back-info', function (e) {
+    e.preventDefault();
+    $('.cabinet .item-data .edit').slideUp();
+    $('.cabinet .item-data .no-edit').slideDown();
+
+  });
+
+
+
+
+
 
 });
