@@ -815,8 +815,41 @@ jQuery(document).ready(function ($) {
   });
 
 
+  /*slider*/
+  var swiperTest = new Swiper(".test-slider", {
+    touchRatio: 1,
+    allowTouchMove:false,
+    noSwiping: false,
+  });
 
+  /*active button test*/
+  $(document).on('click', '.chose-wrap .input-wrap input', function (e){
+    $(this).closest('.swiper-slide').find('.btn-wrap').removeClass('disabled');
+  });
 
+  /*next step test*/
+  $(document).on('click', '.next-step', function (e){
+    e.preventDefault();
+    swiperTest.slideNext();
+  });
 
+  /*prev step test*/
+  $(document).on('click', '.back-slide', function (e){
+    e.preventDefault();
+    swiperTest.slidePrev();
+  });
 
+  /*change step test*/
+  swiperTest.on('slideChange', function () {
+    let item = swiperTest.activeIndex
+    $('.steps-wrap ul').removeClass().addClass('is-active'+item)
+  });
+
+  /*open test popup*/
+  if($('.test-popup').length >0){
+    $.fancybox.open( $('#test-popup'), {
+      touch:false,
+      autoFocus:false,
+    });
+  }
 });
