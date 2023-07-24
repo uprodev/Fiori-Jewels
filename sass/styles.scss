@@ -6903,5 +6903,7 @@ header .top-menu > ul > .page-current a:after{
   opacity: 0;
   margin-bottom: -140px;
 }
-
+.catalog-product .filter-line .wrap > a.is-active:after{
+  transform: rotate(-135deg);
+}
 /*----------------------END-PAGE-CABINET-----------------------*/

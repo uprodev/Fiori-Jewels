@@ -654,7 +654,14 @@ jQuery(document).ready(function ($) {
     e.preventDefault();
 
     if(window.innerWidth > 767){
-      $('.catalog-product .filter-block').slideDown();
+
+      $(this).toggleClass('is-active');
+      if($(this).hasClass('is-active')){
+        $('.catalog-product .filter-block').slideDown();
+      }else{
+        $('.catalog-product .filter-block').slideUp();
+      }
+
     }else{
       $.fancybox.open( $('#filter-popup'), {
         touch:false,
