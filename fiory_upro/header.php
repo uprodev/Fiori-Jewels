@@ -221,11 +221,22 @@
           </div>
         <?php endif ?>
 
-        <?php if ($field = get_field('link_header', 'option')): ?>
+
           <div class="right ">
-            <a href="<?= $field['url'] ?>"<?php if($field['target']) echo ' target="_blank"' ?>><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-1.svg" alt=""><?= $field['title'] ?></a>
+
+              <?php if (!is_user_logged_in()) { ?>
+                  <a href="<?= get_permalink(515) ?>">
+                      <img src="<?= get_stylesheet_directory_uri() ?>/img/icon-1.svg" alt="">
+                      Sign in
+                  </a>
+              <?php } else { ?>
+                <a href="<?= get_permalink(12) ?>">
+                    <img src="<?= get_stylesheet_directory_uri() ?>/img/icon-1.svg" alt="">
+                </a>
+              <?php } ?>
           </div>
-        <?php endif ?>
+
+
 
       </div>
       <nav class="top-menu">

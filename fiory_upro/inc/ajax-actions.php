@@ -27,62 +27,52 @@ function ajax_registration()
     // First check the nonce, if it fails the function will break
     //  check_ajax_referer( 'ajax-registration-nonce', 'security' );
 
-    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($_POST['billing_email'], FILTER_VALIDATE_EMAIL)) {
         echo json_encode(array(
             'update' => false,
-            'status' => '<p class="error">Email address ' . $_POST['email'] . ' is incorrect</p>',
+            'status' => '<p class="error">Email address ' . $_POST['billing_email'] . ' is incorrect</p>',
         ));
         wp_die();
     }
 
-    if ($_POST['email']  ) {
+    if ($_POST['billing_email']  ) {
 
-
-        $login = $_POST['email'];
-        $email = $_POST['email'];
+        $login = $_POST['billing_email'];
+        $email = $_POST['billing_email'];
         $password = $_POST['password'];
         $role = $_POST['role'] ?: 'subscriber';
-
-        $i = 1;
-
-        while (username_exists($login)) {
-            ++$i;
-            $login = $login . $i;
-        }
-
         $user = get_user_by('email', $email);
 
 
         if (empty($user)) {
 
-            $password =  wp_generate_password( 8, false );
-
-            // $user_id = register_new_user( $login, $email );
-            // $user_id = wp_create_user( $login, $password, $email );
-
-
             $userdata = [
-                'user_login' =>$login,
-                'user_pass'  => $password,
+                'user_login' => $login,
+                'user_pass'  => trim($password),
                 'user_email' => $login,
             ];
 
-            /**
-             * Проверять/очищать передаваемые поля не обязательно,
-             * WP сделает это сам.
-             */
-
             $user_id = wp_insert_user( $userdata ) ;
-            wp_new_user_notification( $user_id, 'both' );
+        //    wp_new_user_notification( $user_id, 'both' );
 
             if ($user_id) {
                 $data = array(
                     'update' => true,
-                    'status' => '<p class="success">' . __('Регистрация успешная', 'sage') . '</p>',
-                    'redirect' => get_permalink(444),
-                    'user_id' => $user_id,
+                    'status' => '<p class="success">' . __('Registration successful', 'sage') . '</p>',
+                    'redirect' => get_permalink(12),
+                    'user_id' => $_POST,
                 );
+                $fields = ['billing_email', 'billing_first_name', 'billing_last_name', 'billing_phone'];
 
+                foreach ($fields as $field)
+                    update_field($field, $_POST[$field], 'user_' . $user_id);
+
+                $auth = wp_authenticate($email, $password);
+                wp_set_current_user($auth->ID);
+                wp_set_auth_cookie($auth->ID, true);
+
+
+             //   print_r($_POST);
             }
 
         } else {
@@ -109,31 +99,13 @@ function ajax_registration()
     wp_die();
 }
 
-add_filter('wp_new_user_notification_email', 'change_notification_message', 10, 3);
 
-function change_notification_message( $wp_new_user_notification_email, $user, $blogname ) {
-
-
-    $password =  wp_generate_password( 8, false );
-    wp_update_user([
-        'ID' => $user->ID,
-        'user_pass' => $password
-    ]);
-
-    $message  .= sprintf( __( 'Username: %s' ), $user->user_login ) . "\r\n\r\n";
-    $message = __( 'Пароль: ' ) . $password. "\r\n\r\n";
-
-    // Set the email's message
-    $wp_new_user_notification_email['message'] = $message;
-
-    return $wp_new_user_notification_email;
-}
 
 function ajax_login()
 {
 
     // First check the nonce, if it fails the function will break
-    check_ajax_referer('ajax-login-nonce', 'security');
+   // check_ajax_referer('ajax-login-nonce', 'security');
 
     // Nonce is checked, get the POST data and sign user on
     $email = $_POST['login'];
@@ -144,25 +116,34 @@ function ajax_login()
     if (is_wp_error($auth)) {
         $data = array(
             'update' => false,
-            'status' => '<p class="error">' . __('Неверные логин или пароль', 'sage') . '</p>',
+            't' => $password,
+            'status' => '<p class="error">' . __('Incorrect login data', 'sage') . '</p>',
         );
     } else {
 
 
+        //asdsd@dsdddd.dd
+//        wp_set_current_user($auth->ID);
+
+
+        wp_clear_auth_cookie();
         wp_set_current_user($auth->ID);
-        wp_set_auth_cookie($auth->ID, true);
-        do_action('wp_login', $auth->user_login, $auth);
+        wp_set_auth_cookie($auth->ID, true, false);
+        update_user_caches( $auth );
+
+//        do_action('wp_login', $auth->user_login, $auth);
         $data = array(
             'update' => true,
-            'status' => '<p class="success">' . __('Подождите...', 'sage') . '</p>',
-            'redirect' => '/',
+            'status' => '<p class="success">' . __(' Please wait...', 'sage') . '</p>',
+            'redirect' => get_permalink(12),
+            'auth' => $auth
         );
     }
 
     if (empty($data))
         $data = array(
             'update' => false,
-            'status' => '<p class="error">' . __('Unknow error', 'sage') . '</p>',
+            'status' => '<p class="error">' . __('Unknown error', 'sage') . '</p>',
         );
 
     echo json_encode($data);
@@ -190,25 +171,25 @@ function ajax_reset()
     // First check the nonce, if it fails the function will break
     check_ajax_referer('ajax-reset-nonce', 'security');
 
-    if ($_POST['email']) {
+    if ($_POST['login']) {
 
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($_POST['login'], FILTER_VALIDATE_EMAIL)) {
             echo json_encode(array(
                 'update' => false,
-                'status' => '<p class="error">Email address ' . $_POST['email'] . ' is incorrect</p>',
+                'status' => '<p class="error">Email address ' . $_POST['login'] . ' is incorrect</p>',
             ));
             wp_die();
         }
 
-        if ($user = get_user_by('email', $_POST['email'])) {
+        if ($user = get_user_by('email', $_POST['login'])) {
 
             $pass = wp_generate_password();
 
-            wp_mail($_POST['email'], 'Reset password', 'Новый пароль ' . $pass);
+            wp_mail($_POST['login'], 'Reset password', 'New password ' . $pass);
 
             $data = array(
                 'update' => true,
-                'status' => '<p>Новый пароль отправлен на email.</p>',
+                'status' => '<p>New password has been sent to email</p>',
                 'data' => $user
             );
 

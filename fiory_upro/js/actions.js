@@ -98,14 +98,9 @@ jQuery(document).ready(function ($) {
             if (data) {
               console.log(data)
 
-
-
               if (data.update) {
-                $.fancybox.close();
-                $.fancybox.open($('#send-ok'), {
-                  touch: false,
-                  autoFocus: false,
-                });
+                $('.result-register').html(data.status)
+                location.href = data.redirect
               } else {
                 $('.result-register').html(data.status)
               }
@@ -119,6 +114,12 @@ jQuery(document).ready(function ($) {
 
       }
     });
+
+
+  $('.lost').click(function(e){
+    e.preventDefault()
+    $('.lostpasswordform').show();
+  })
 
 
   if ($('.lostpasswordform').length)
@@ -142,12 +143,6 @@ jQuery(document).ready(function ($) {
 
 
               $('.result-reset').html(data.status)
-
-              $.fancybox.close();
-              $.fancybox.open($('#send-ok-password'), {
-                touch: false,
-                autoFocus: false,
-              });
 
 
             }
