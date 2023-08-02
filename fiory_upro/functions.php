@@ -1,6 +1,8 @@
-<?php 
+<?php
 
-// show_admin_bar( false );
+include 'inc/ajax-actions.php'; // ajax
+include 'inc/woo.php';          // woocommerce functions
+
 
 add_action('wp_enqueue_scripts', 'load_style_script');
 function load_style_script(){
@@ -26,6 +28,10 @@ function load_style_script(){
 	wp_enqueue_script('my-mask', get_template_directory_uri() . '/js/jquery.mask.min.js', array(), false, true);
 	wp_enqueue_script('my-intlTelInput', get_template_directory_uri() . '/js/intlTelInput.min.js', array(), false, true);
 	wp_enqueue_script('my-script', get_template_directory_uri() . '/js/script.js', array(), false, true);
+
+    wp_enqueue_script('jqueryvalidation',  'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', array(), false, 1);
+
+    wp_enqueue_script('actions', get_template_directory_uri() . '/js/actions.js', array(), false, true);
 }
 
 
@@ -41,11 +47,11 @@ add_action('after_setup_theme', function(){
 
 add_theme_support( 'title-tag' );
 add_theme_support('html5');
-add_theme_support( 'post-thumbnails' ); 
+add_theme_support( 'post-thumbnails' );
 
 
 if( function_exists('acf_add_options_page') ) {
-	
+
 	acf_add_options_page(array(
 		'page_title' 	=> 'Main settings',
 		'menu_title'	=> 'Theme options',
@@ -77,3 +83,14 @@ function override_mce_options($initArray) {
 add_action( 'after_setup_theme', function() {
     add_theme_support( 'woocommerce' );
 } );
+
+
+add_filter('bcn_breadcrumb_title', 'my_breadcrumb_title_swapper', 3, 10);
+function my_breadcrumb_title_swapper($title, $type, $id)
+{
+    if(in_array('home', $type))
+    {
+        $title = __('Home', 'Fiori');
+    }
+    return $title;
+}
