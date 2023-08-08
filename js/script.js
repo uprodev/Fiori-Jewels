@@ -29,7 +29,7 @@ jQuery(document).ready(function ($) {
     });
 
     /*open favorite product*/
-    $(document).on('click', 'header .btn-like', function (e){
+    $(document).on('click', 'header .btn-card', function (e){
       e.preventDefault()
       $('.like-line').slideDown();
     });
@@ -852,11 +852,4 @@ jQuery(document).ready(function ($) {
     $('.steps-wrap ul').removeClass().addClass('is-active'+item)
   });
 
-  /*open test popup*/
-  if($('.test-popup').length >0){
-    $.fancybox.open( $('#test-popup'), {
-      touch:false,
-      autoFocus:false,
-    });
-  }
 });
