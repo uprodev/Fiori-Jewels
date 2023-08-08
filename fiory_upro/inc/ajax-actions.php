@@ -25,7 +25,7 @@ function ajax_registration()
 {
 
     // First check the nonce, if it fails the function will break
-    //  check_ajax_referer( 'ajax-registration-nonce', 'security' );
+      check_ajax_referer( 'ajax-registration-nonce', 'security' );
 
     if (!filter_var($_POST['billing_email'], FILTER_VALIDATE_EMAIL)) {
         echo json_encode(array(
@@ -99,8 +99,6 @@ function ajax_registration()
     wp_die();
 }
 
-
-
 function ajax_login()
 {
 
@@ -150,7 +148,6 @@ function ajax_login()
 
     wp_die();
 }
-
 
 function validate_email()
 {
@@ -219,6 +216,71 @@ function ajax_reset()
 
 }
 
+function save_personal_data()
+{
+
+    check_ajax_referer( 'ajax-profile-nonce', 'security' );
+
+    $user_id = $_POST['user_id'];
+    $pass =  $_POST['password'];
+    if ($user_id > 0 ) {
+
+
+        //meta
+        update_user_meta($user_id, 'newsletter', sanitize_text_field( $_POST['newsletter'] ));
+        if (!empty($_POST['meta']))
+            foreach ($_POST['meta'] as $key => $value) {
+                update_user_meta($user_id, $key, sanitize_text_field( $value ));
+                if ($key == 'billing_email') {
+                    wp_update_user(['ID' => $user_id, 'user_email' => $value]);
+                }
+            }
+
+
+        //dates
+        if (!empty($_POST['dates']))
+            foreach ($_POST['dates'] as $key => $value) {
+                $date = [
+                    'day' =>  $value['day'],
+                    'month' =>  $value['month'],
+                    'year' =>  $value['year'],
+                ];
+
+                update_field($key, $date, 'user_' . $user_id);
+//                update_user_meta($user_id, $key . '_' . 'day', sanitize_text_field( $value['day'] ));
+//                update_user_meta($user_id, $key . '_' . 'month', sanitize_text_field( $value['month'] ));
+//                update_user_meta($user_id, $key . '_' . 'year', sanitize_text_field( $value['year'] ));
+
+            }
+
+        if ($user_id > 0 && $pass) {
+
+                wp_update_user([
+                    'ID' => $user_id,
+                    'user_pass' => $pass
+                ]);
+
+            }
+
+    }
+
+    ob_start();
+    $type = $_POST['type'] ? $_POST['type'] : 'billing';
+    get_template_part('parts/account', $type , ['user_id' => $user_id]);
+    $personal = ob_get_clean();
+
+
+
+    wp_send_json(
+        [
+            'status' => 'Information updated',
+            'personal' => $personal,
+            'data' => $_POST
+        ]
+    );
+    die();
+}
+
 
 
 function qty_cart()
@@ -245,6 +307,8 @@ function remove_item_from_cart()
         WC()->cart->remove_cart_item($cart_item_key);
         $count = WC()->cart->get_cart_contents_count();
     }
+
+    WC_AJAX::get_refreshed_fragments();
     wp_send_json(
         [
             'count' => $count,
@@ -346,92 +410,6 @@ function order_viewed()
 
 
 
-function save_personal_data()
-{
-
-//    print_r($_POST);
-//
-//    die();
-    $user_id = $_POST['user_id'];
-    $key = $_POST['field_name'];
-    $value = $_POST['field_value'];
-
-    $pass = $_POST['pass'];
-    $pass2 = $_POST['pass2'];
-    $pass3 = $_POST['pass3'];
-
-    $bank = $_POST['bank'];
-
-
-    if ($user_id > 0 && $key && $value) {
-
-        if ('billing_email' == $key) {
-            $fail = is_email($value);
-            $fail_message = 'Введите корректный E-mail';
-        }
-
-
-        update_user_meta($user_id, $key, sanitize_text_field( $value ));
-        //  update_field($key,  sanitize_text_field( $value ), 'user_' .$user_id  );
-    }
-
-    if ($user_id > 0 && $pass) {
-        if ($pass2 !== $pass3) {
-            $fail = true;
-            $fail_message = 'Пароли не совпадают';
-        } elseif (strlen($pass3) < 8) {
-            $fail = true;
-            $fail_message = 'Минимальная длина должна быть 8 симоволов ';
-        } else {
-            wp_update_user([
-                'ID' => $user_id,
-                'user_pass' => $pass3
-            ]);
-
-        }
-
-    }
-
-    if ($user_id > 0 && !empty($bank)) {
-
-        foreach ($bank as $key => $value) {
-            update_field($key,  sanitize_text_field( $value ), 'user_' . $user_id  );
-        }
-
-        $bacs_meta = bacs_meta();
-        ob_start(); ?>
-
-        <?php foreach ($bacs_meta as $key=>$item) { ?>
-            <li>
-                <p><span><?= $item ?></span></p>
-                <p><?= get_field($key, 'user_'. $user_id) ?></p>
-            </li>
-        <?php } ?>
-        <?php
-
-        $html = ob_get_clean();
-
-        wp_send_json(
-            [
-                'html' => $html,
-
-            ]
-        );
-
-        die();
-    }
-
-
-
-    wp_send_json(
-        [
-            'fail' => $fail,
-            'fail_message' => $fail_message,
-            'data' => $_POST
-        ]
-    );
-    die();
-}
 
 
 function add_ticket() {
