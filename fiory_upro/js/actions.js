@@ -191,7 +191,8 @@ jQuery(document).ready(function ($) {
     });
   });
 
-  $(document).on('click', '.delete-item a', function () {
+  $(document).on('click', '.delete-item a', function (e) {
+    e.preventDefault()
     var item_hash = $(this).attr('data-hash');
 
     $.ajax({
@@ -203,8 +204,8 @@ jQuery(document).ready(function ($) {
       },
       success: function (data) {
         $(document.body).trigger('wc_update_cart');
-
-        if (data.count === 0) location.href = '/shop';
+        $( document.body ).trigger( 'wc_fragment_refresh' );
+      //  if (data.count === 0) location.href = '/shop';
       },
     });
   });
@@ -311,139 +312,40 @@ jQuery(document).ready(function ($) {
    */
 
 
-  $(document).on('change', '.filter-form-viewed [name]', function (e) {
+  $('.personal-data-form').validate({
 
-    var data = $('.filter-form-viewed').serialize()
+    errorPlacement: function(error, element) {
+      var placement = $(element).data('error');
+      var pl = $(element).closest('div')
+      error.prependTo(pl);
+    },
 
-    $.ajax({
-      type: 'GET',
-      url: wc_add_to_cart_params.ajax_url,
-      data: data,
-      success: function (data) {
+    submitHandler: function (form) {
 
+      var data = $('.personal-data-form').serialize()
+      $.ajax({
+        url: '/wp-admin/admin-ajax.php',
+        data: data,
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+          if (data) {
+            console.log(data)
 
-        if (data.found > 0) {
-          $('.item-empty').remove();
-          $('.favorites').show();
-          $('.viewed-result').html(data.result)
-        }
+            $('.result-personal').html(data.status);
+            $('.personal-data').html(data.personal)
 
-        // else {
-        //     $(data.result).insertBefore('.favorites')
-        //     $('.favorites').hide();
-        // }
-
-
-
-      },
-    });
-  })
-
-
-  $(document).on('click', '.personal-data-form .save:not(.save-pass)', function () {
-    var user_id = $(this).closest('.personal-data-form').attr('data-user_id');
-    var field_name = $(this).parent().parent().parent().find('input').attr('name');
-    var field_value = $(this).parent().parent().parent().find('input').val();
-    $.ajax({
-      type: 'POST',
-      url: wc_add_to_cart_params.ajax_url,
-      data: {
-        action: 'save_personal_data',
-        user_id: user_id,
-        field_name: field_name,
-        field_value: field_value,
-      },
-      success: function (data) {
-        console.log(data)
-
-        if (data.fail) {
-          alert(data.fail_message)
-        }
-      },
-    });
-  });
-
-  $(document).on('click', '.personal-data-form .save.save-pass', function () {
-    var user_id = $(this).closest('.personal-data-form').attr('data-user_id');
-
-    var pass2 = $('#password2').val();
-    var pass3 = $('#password3').val();
-
-    $.ajax({
-      type: 'POST',
-      url: wc_add_to_cart_params.ajax_url,
-      data: {
-        action: 'save_personal_data',
-        user_id: user_id,
-        pass: true,
-
-        pass2: pass2,
-        pass3: pass3,
-      },
-      success: function (data) {
-        console.log(data)
-
-        if (data.fail) {
-          alert(data.fail_message)
-        }
-      },
-    });
-  });
-
-
-  $(document).on('click', '.btn-save-company', function () {
-    var user_id = $(this).closest('.personal-data-form').attr('data-user_id');
-
-    var bank = {};
-
-    $('.edit-company-fields').each(function(){
-      var name = $(this).find('input').attr('name');
-      var value = $(this).find('input').val();
-      bank[name] = value;
-    });
-
-    $.ajax({
-      type: 'POST',
-      url: wc_add_to_cart_params.ajax_url,
-      dataType:'json',
-      data: {
-        action: 'save_personal_data',
-        user_id: user_id,
-        bank: bank
-      },
-      success: function (data) {
-        console.log(data)
-
-        if (data.html) {
-          $('.characteristics').html(data.html)
-        }
-
-      },
-    });
-  });
-
-
-  if ($('#add-repair form').length)
-    $('#add-repair form').validate({
-      submitHandler: function (form) {
-        var data = $('#add-repair form').serialize()
-        $.ajax({
-          url: wc_add_to_cart_params.ajax_url,
-          data: data,
-          type: 'POST',
-          dataType: 'json',
-          success: function (data) {
-            if (data) {
-              $.fancybox.close();
-              $.fancybox.open( $('#repair-ok'), {
-                touch:false,
-                autoFocus:false,
-              });
-            }
           }
-        });
-      }
-    });
+        }
+      });
+
+    }
+  });
+
+
+
+
+
 
 
   /**

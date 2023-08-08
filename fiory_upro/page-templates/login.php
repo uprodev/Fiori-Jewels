@@ -42,7 +42,7 @@ Template Name: Login
                             <input type="hidden" name="action" value="ajax_login">
                             <?php wp_nonce_field( 'ajax-login-nonce', 'security' ); ?>
                             <div class="result-login"></div>
- 
+
                         </form>
 
                         <form action="#" class="form-default lostpasswordform" style="display: none">

@@ -852,11 +852,4 @@ jQuery(document).ready(function ($) {
     $('.steps-wrap ul').removeClass().addClass('is-active'+item)
   });
 
-  /*open test popup*/
-  if($('.test-popup').length >0){
-    $.fancybox.open( $('#test-popup'), {
-      touch:false,
-      autoFocus:false,
-    });
-  }
 });

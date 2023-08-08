@@ -92,112 +92,7 @@
   <?php endif ?>
 
   <div class="like-line">
-    <div class="content-width">
-      <div class="product-wrap">
-        <h5>YOUR BAG</h5>
-        <div class="grid">
-          <div class="product-item-button">
-            <figure>
-              <div class="delete-like">
-                <a href="#"><img src="img/close-small.svg" alt=""></a>
-              </div>
-              <a href="#">
-                <img src="img/img-8-1.jpg" alt="">
-              </a>
-            </figure>
-            <div class="text-wrap">
-              <h6><a href="#">Five stone halo ring</a></h6>
-              <p class="cost">$1800</p>
-            </div>
-            <div class="wrap-hover">
-              <div class="btn-wrap">
-                <a href="#" class="btn-default">ADD TO BAG</a>
-              </div>
-            </div>
-          </div>
-          <div class="product-item-button">
-            <figure>
-              <div class="delete-like">
-                <a href="#"><img src="img/close-small.svg" alt=""></a>
-              </div>
-              <a href="#">
-                <img src="img/img-8-2.jpg" alt="">
-              </a>
-            </figure>
-            <div class="text-wrap">
-              <h6><a href="#">Wedding Band</a></h6>
-              <p class="cost">$5300</p>
-            </div>
-            <div class="wrap-hover">
-              <div class="btn-wrap">
-                <a href="#" class="btn-default">ADD TO BAG</a>
-              </div>
-            </div>
-          </div>
-          <div class="product-item-button">
-            <figure>
-              <div class="delete-like">
-                <a href="#"><img src="img/close-small.svg" alt=""></a>
-              </div>
-              <a href="#">
-                <img src="img/img-8-3.jpg" alt="">
-              </a>
-            </figure>
-            <div class="text-wrap">
-              <h6><a href="#">Halo shoulder ring</a></h6>
-              <p class="cost">$1208</p>
-            </div>
-            <div class="wrap-hover">
-              <div class="btn-wrap">
-                <a href="#" class="btn-default">ADD TO BAG</a>
-              </div>
-            </div>
-          </div>
-          <div class="product-item-button">
-            <figure>
-              <div class="delete-like">
-                <a href="#"><img src="img/close-small.svg" alt=""></a>
-              </div>
-              <a href="#">
-                <img src="img/img-8-4.jpg" alt="">
-              </a>
-            </figure>
-            <div class="text-wrap">
-              <h6><a href="#">Necklace</a></h6>
-              <p class="cost">$325</p>
-            </div>
-            <div class="wrap-hover">
-              <div class="btn-wrap">
-                <a href="#" class="btn-default">ADD TO BAG</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cart-wrap">
-        <div class="cart-content">
-          <h5>ORDER SUMMARY</h5>
-          <div class="info-cart">
-            <p><span>QUANITY OF ITEMS</span> <span>3</span></p>
-          </div>
-        </div>
-        <div class="total-cart">
-          <h6><span>ORDER TOTAL</span> <span>$7,425</span></h6>
-        </div>
-        <div class="btn-wrap">
-          <a href="#" class="btn-default">PROCEED TO CHECKOUT</a>
-        </div>
-        <div class="or">
-          <p><span>OR</span></p>
-        </div>
-        <div class="btn-wrap">
-          <a href="#" class="btn-default">EXPRESS CHECKOUT</a>
-        </div>
-      </div>
-      <a href="#" class="close-like">
-        <img src="img/close-small.svg" alt="">
-      </a>
-    </div>
+    <?php woocommerce_mini_cart(); ?>
   </div>
 
   <div class="top-line">
@@ -222,19 +117,19 @@
         <?php endif ?>
 
 
-          <div class="right ">
+        <div class="right ">
 
-              <?php if (!is_user_logged_in()) { ?>
-                  <a href="<?= get_permalink(515) ?>">
-                      <img src="<?= get_stylesheet_directory_uri() ?>/img/icon-1.svg" alt="">
-                      Sign in
-                  </a>
-              <?php } else { ?>
-                <a href="<?= get_permalink(12) ?>">
-                    <img src="<?= get_stylesheet_directory_uri() ?>/img/icon-1.svg" alt="">
-                </a>
-              <?php } ?>
-          </div>
+          <?php if (!is_user_logged_in()) { ?>
+            <a href="<?= get_permalink(515) ?>">
+              <img src="<?= get_stylesheet_directory_uri() ?>/img/icon-1.svg" alt="">
+              Sign in
+            </a>
+          <?php } else { ?>
+            <a href="<?= get_permalink(12) ?>">
+              <img src="<?= get_stylesheet_directory_uri() ?>/img/icon-1.svg" alt="">
+            </a>
+          <?php } ?>
+        </div>
 
 
 
@@ -253,23 +148,20 @@
               <li>
 
                 <?php if ($field = get_sub_field('link')): ?>
-                  <a href="<?= $field['url'] ?>"<?php if($field['target']) echo ' target="_blank"' ?>><?= $field['title'] ?></a>
+                  <a href="<?= $field['url'] ?>"<?php if(get_sub_field('is_popup')) echo ' class="fancybox"' ?><?php if($field['target']) echo ' target="_blank"' ?>><?= $field['title'] ?></a>
                 <?php endif ?>
 
-                <div class="sub-menu">
-                  <div class="content-width">
+                <?php if (get_sub_field('is_sub_menu') && have_rows('sub_menu')): ?>
+                  <div class="sub-menu">
+                    <div class="content-width">
 
-                    <?php if ($field = get_sub_field('title')): ?>
-                      <div class="title-wrap">
-                        <h2><?= $field ?></h2>
-                      </div>
-                    <?php endif ?>
+                      <?php if ($field = get_sub_field('title')): ?>
+                        <div class="title-wrap">
+                          <h2><?= $field ?></h2>
+                        </div>
+                      <?php endif ?>
 
-                    <?php if (have_rows('sub_menu') || have_rows('gallery')): ?>
-                    <div class="content">
-
-                      <?php if( have_rows('sub_menu') ): ?>
-
+                      <div class="content">
                         <div class="wrap">
 
                           <?php while( have_rows('sub_menu') ): the_row(); ?>
@@ -318,55 +210,55 @@
 
                         </div>
 
+                        <?php if( have_rows('gallery') ): ?>
+
+                          <div class="img-wrap">
+
+                            <?php while( have_rows('gallery') ): the_row(); ?>
+
+                              <?php if (get_sub_field('image') || get_sub_field('text')): ?>
+                              <div class="img">
+
+                                <?php if ($field = get_sub_field('image')): ?>
+                                  <figure>
+                                    <?= wp_get_attachment_image($field['ID'], 'full') ?>
+                                  </figure>
+                                <?php endif ?>
+
+                                <?php if ($field = get_sub_field('text')): ?>
+                                  <p><?= $field ?></p>
+                                <?php endif ?>
+
+                              </div>
+                            <?php endif ?>
+
+                          <?php endwhile; ?>
+
+                        </div>
+
                       <?php endif; ?>
 
-                      <?php if( have_rows('gallery') ): ?>
-
-                        <div class="img-wrap">
-
-                          <?php while( have_rows('gallery') ): the_row(); ?>
-
-                            <?php if (get_sub_field('image') || get_sub_field('text')): ?>
-                            <div class="img">
-
-                              <?php if ($field = get_sub_field('image')): ?>
-                                <figure>
-                                  <?= wp_get_attachment_image($field['ID'], 'full') ?>
-                                </figure>
-                              <?php endif ?>
-
-                              <?php if ($field = get_sub_field('text')): ?>
-                                <p><?= $field ?></p>
-                              <?php endif ?>
-
-                            </div>
-                          <?php endif ?>
-
-                        <?php endwhile; ?>
-
-                      </div>
-
-                    <?php endif; ?>
-
+                    </div>
                   </div>
-                <?php endif ?>
+                </div>
+              <?php endif ?>
 
-              </div>
-            </div>
-          </li>
+            </li>
 
-        <?php endwhile; ?>
+          <?php endwhile; ?>
 
-      </ul>
+        </ul>
 
-    <?php endif; ?>
+      <?php endif; ?>
 
-    <div class="btn-wrap right-btn">
-      <a href="<?php the_permalink(380) ?>" class="btn-like"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-4.svg" alt=""><span>1</span></a>
-      <a href="#" class="btn-card"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-3.svg" alt=""><span>1</span></a>
-    </div>
-  </nav>
-</div>
+      <div class="btn-wrap right-btn">
+        <a href="<?php the_permalink(380) ?>" class="btn-like"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-4.svg" alt=""><span>1</span></a>
+        <a href="#" class="btn-card"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-3.svg" alt="">
+          <span><?= WC()->cart->get_cart_contents_count() ?></span>
+        </a>
+      </div>
+    </nav>
+  </div>
 </div>
 <div class="mob-line">
   <div class="content-width">

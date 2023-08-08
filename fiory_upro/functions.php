@@ -21,6 +21,7 @@ function load_style_script(){
 	wp_enqueue_style('my-style-main', get_template_directory_uri() . '/style.css');
 
 	wp_enqueue_script('jquery');
+    wp_enqueue_script( 'wc-cart-fragments' );
 	wp_enqueue_script('my-swiper', get_template_directory_uri() . '/js/swiper.js', array(), false, true);
 	wp_enqueue_script('my-fancybox', get_template_directory_uri() . '/js/jquery.fancybox.min.js', array(), false, true);
 	wp_enqueue_script('my-select', get_template_directory_uri() . '/js/jquery.nice-select.min.js', array(), false, true);
@@ -32,12 +33,18 @@ function load_style_script(){
     wp_enqueue_script('jqueryvalidation',  'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', array(), false, 1);
 
     wp_enqueue_script('actions', get_template_directory_uri() . '/js/actions.js', array(), false, true);
+    wp_enqueue_script('add', get_template_directory_uri() . '/js/add.js', array(), false, true);
 
     wp_localize_script('actions', 'globals',
         array(
             'url' => admin_url('admin-ajax.php'),
             'template' => get_template_directory_uri(),
 
+        )
+    );
+    wp_localize_script('add', 'php_vars',
+        array(
+            'diamonds_quiz_result_url' => get_permalink(570),
         )
     );
 
