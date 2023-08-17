@@ -139,7 +139,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
                         <?php if (!is_user_logged_in()) { ?>
                         <p class="no-login">Already have an account? <a href="/login/">Log In</a></p>
                         <?php } ?>
-                        
+
                         <?php do_action('woocommerce_login_placement') ?>
 
                         <div class="item-info-checkout label-block">

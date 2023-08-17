@@ -27,16 +27,19 @@ function bbloomer_myaccount_remove_orders_tab( $items ) {
     unset( $items['customer-logout'] );
     $items['edit-address'] = 'PERSONAL DATA ';
     $items['shipping'] = 'ADDRESSES';
-    $items['orders'] = 'Orders';
+    $items['orders'] = 'MY ORDERS';
+    $items['wishlist'] = 'WISHLIST';
     $items['customer-logout'] = 'Log out';
     return $items;
 }
 
 add_action('init', function() {
     add_rewrite_endpoint('shipping', EP_ROOT | EP_PAGES);
+    add_rewrite_endpoint('wishlist', EP_ROOT | EP_PAGES);
 });
 function my_custom_query_vars( $vars ) {
     $vars[] = 'shipping';
+    $vars[] = 'wishlist';
     return $vars;
 }
 
@@ -46,6 +49,12 @@ add_action('woocommerce_account_shipping_endpoint', function() {
     $endpoint = [];  // Replace with function to return licenses for current logged in user
     wc_get_template('myaccount/shipping.php', [
         'shipping' => $endpoint
+    ]);
+});
+add_action('woocommerce_account_wishlist_endpoint', function() {
+    $endpoint = [];  // Replace with function to return licenses for current logged in user
+    wc_get_template('myaccount/wishlist.php', [
+        'wishlist' => $endpoint
     ]);
 });
 

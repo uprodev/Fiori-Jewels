@@ -24,7 +24,7 @@ $user = get_userdata($user_id);
 
 do_action( 'woocommerce_before_edit_account_address_form' ); ?>
 
-
+<h2>ADDRESSES</h2>
 <div class="no-edit" style="">
     <h6>ADDRESSES</h6>
 

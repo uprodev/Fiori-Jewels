@@ -45,6 +45,8 @@ function load_style_script(){
     wp_localize_script('add', 'php_vars',
         array(
             'diamonds_quiz_result_url' => get_permalink(570),
+            'form_step_1_url' => get_permalink(601),
+            'form_step_2_url' => get_permalink(605),
         )
     );
 

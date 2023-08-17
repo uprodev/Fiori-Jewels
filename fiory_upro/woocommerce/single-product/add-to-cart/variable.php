@@ -31,27 +31,31 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 	<?php if ( empty( $available_variations ) && false !== $available_variations ) : ?>
 		<p class="stock out-of-stock"><?php echo esc_html( apply_filters( 'woocommerce_out_of_stock_message', __( 'This product is currently out of stock and unavailable.', 'woocommerce' ) ) ); ?></p>
 	<?php else : ?>
-		<table class="variations" cellspacing="0" role="presentation">
-			<tbody>
+		<div class="variations" cellspacing="0" role="presentation">
+
 				<?php foreach ( $attributes as $attribute_name => $options ) : ?>
-					<tr>
-						<th class="label"><label for="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>"><?php echo wc_attribute_label( $attribute_name ); // WPCS: XSS ok. ?></label></th>
-						<td class="value">
-							<?php
-								wc_dropdown_variation_attribute_options(
-									array(
-										'options'   => $options,
-										'attribute' => $attribute_name,
-										'product'   => $product,
-									)
-								);
-								echo end( $attribute_keys ) === $attribute_name ? wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' ) ) : '';
-							?>
-						</td>
-					</tr>
+
+                    <div class="metal-wrap item">
+                        <h6 class="label"><?php echo wc_attribute_label( $attribute_name ); // WPCS: XSS ok. ?></h6>
+                        <div class="select-wrap">
+                            <?php
+                            wc_dropdown_variation_attribute_options(
+                                array(
+                                    'options'   => $options,
+                                    'attribute' => $attribute_name,
+                                    'product'   => $product,
+                                )
+                            );
+                           // echo end( $attribute_keys ) === $attribute_name ? wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' ) ) : '';
+                            ?>
+                        </div>
+                    </div>
+
+
+
 				<?php endforeach; ?>
-			</tbody>
-		</table>
+
+		</div>
 		<?php do_action( 'woocommerce_after_variations_table' ); ?>
 
 		<div class="single_variation_wrap">

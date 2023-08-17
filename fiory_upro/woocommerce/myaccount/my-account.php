@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
         <ul>
             <li><a href="#">Home </a><span>/</span></li>
             <li><a href="#">MY ACCOUNT </a><span>/</span></li>
-            <li>PERSONAL DATA</li>
+            <li><?=  WC()->query->get_current_endpoint();  ?></li>
         </ul>
     </div>
 </div>
@@ -62,7 +62,8 @@ defined( 'ABSPATH' ) || exit;
                 <div class="tab-item item-data">
 
 
-                    <h2>PERSONAL DATA</h2>
+
+
 
                     <?php
                     /**
