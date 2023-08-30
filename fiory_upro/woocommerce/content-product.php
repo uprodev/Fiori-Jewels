@@ -21,15 +21,51 @@ global $product;
 
 // Ensure visibility.
 if ( empty( $product ) || ! $product->is_visible() ) {
-	return;
+    return;
 }
+global $loop;
+
+$image = get_the_post_thumbnail_url(get_the_id(), 'large')  ?: wc_placeholder_img_src();
+
+switch ($loop) :
+    case 8 :
+        $class = 'flex-bottom item-075';
+        break;
+
+    case 9 :
+        $class = ' pt-110 item-075';
+        break;
+
+    case 10 :
+        $class = 'item-4x item-black';
+        break;
+
+    case 18 :
+        $class = 'item-w2x';
+        break;
+
+    case 21  :
+        $class = 'item-4x';
+        break;
+
+    case 22  :
+        $class = 'flex-bottom item-075-revers';
+        break;
+
+    case 23  :
+        $class = 'pt-110 item-075-revers';
+        break;
+
+    default:
+        $class = '';
+endswitch;
 ?>
 
-<div class="item">
+<div class="<?= $class ?> item">
     <div class="product-item-button product-big-item">
         <figure>
             <a href="<?= $product->get_permalink() ?>">
-                <img src="<?= get_the_post_thumbnail_url(get_the_id(), 'large') ?>" alt="">
+                <img src="<?= $image ?>" alt="">
             </a>
         </figure>
         <div class="text-wrap">
@@ -41,11 +77,15 @@ if ( empty( $product ) || ! $product->is_visible() ) {
         </div>
         <div class="wrap-hover">
             <div class="btn-wrap">
-                <a href="#" class="btn-default">ADD TO BAG</a>
+                <?php woocommerce_template_loop_add_to_cart() ?>
             </div>
         </div>
     </div>
 </div>
+
+<?php if (in_array($loop, [4, 13, 20])) { ?>
+    <div class="item item-empty"></div>
+<?php } ?>
 
 
 

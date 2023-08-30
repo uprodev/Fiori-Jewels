@@ -65,7 +65,7 @@ if ( $related_products ) { ?>
                                     </div>
                                     <div class="wrap-hover">
                                         <div class="btn-wrap">
-                                            <a href="<?= $product->get_permalink() ?>" data-variation_id="<?= $variation_id ?>" data-product_id="<?= $product->get_id() ?>" class="btn-default add-to-cart">ADD TO BAG</a>
+                                            <?php woocommerce_template_loop_add_to_cart()  ?>
                                         </div>
                                     </div>
                                 </div>

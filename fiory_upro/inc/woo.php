@@ -77,3 +77,39 @@ add_action('woocommerce_payment_placement', 'woocommerce_checkout_payment', 20);
 remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
 remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_login_form', 10 );
 //add_action('woocommerce_login_placement', 'woocommerce_checkout_login_form', 20);
+
+
+//add_shortcode('vc_row' ,'vc_column_text');
+//add_shortcode('vc_column' ,'vc_column_text');
+//add_shortcode('vc_column_text' ,'vc_column_text');
+//function vc_column_text($attr, $content, $tag) {
+//    return $content;
+//}
+
+
+
+add_action( 'init', 'remove_and_strip_shortcode' );
+function remove_and_strip_shortcode() {
+
+    // удаляем
+    remove_shortcode( 'myshortcode' );
+
+    $fn__strip_myshortcode = function( $content ){
+        // вырежет: [myshortcode] и [myshortcode ids="132,2154,548"]
+        $content = preg_replace( '~\[vc_column_text[^\]]*\]~', '', $content );
+        $content = preg_replace( '~\[vc_column[^\]]*\]~', '', $content );
+        $content = preg_replace( '~\[vc_row[^\]]*\]~', '', $content );
+
+
+        // вырежет: [myshortcode] data [/myshortcode]
+        $content = str_replace( '[/vc_column_text]', '', $content );
+        $content = str_replace( '[/vc_column]', '', $content );
+        $content = str_replace( '[/vc_row]', '', $content );
+
+
+        return $content;
+    };
+
+    // вырезаем
+    add_filter( 'the_content', $fn__strip_myshortcode, 5 );
+}

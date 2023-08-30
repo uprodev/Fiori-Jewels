@@ -30,13 +30,17 @@ $attachment_ids = $product->get_gallery_image_ids();
 
     <div class="img-wrap">
         <figure class="full">
-            <img src="<?= get_the_post_thumbnail_url(get_the_id()) ?>" alt="">
+            <a href="<?= get_the_post_thumbnail_url(get_the_id(), 'full') ?>" class="fancybox">
+                <img src="<?= get_the_post_thumbnail_url(get_the_id(), 'large') ?>" alt="">
+            </a>
         </figure>
         <?php
         if ( $attachment_ids && $product->get_image_id() ) {
             foreach ( $attachment_ids as $attachment_id ) { ?>
                 <figure>
+                    <a href="<?= get_the_post_thumbnail_url($attachment_id, 'full') ?>" class="fancybox">
                     <?php echo   wp_get_attachment_image( $attachment_id, 'large' )   ;   ?>
+                    </a>
                 </figure>
         <?php }
         }?>
@@ -77,7 +81,7 @@ $attachment_ids = $product->get_gallery_image_ids();
                 </div>
             </div>
             <div class="scroll-wrap">
-                <p>Lighter</p>
+                    <p>Lighter</p>
                 <div class="swiper-scrollbar swiper-scrollbar-1"></div>
                 <p>Darker</p>
             </div>
