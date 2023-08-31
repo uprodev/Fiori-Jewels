@@ -27,7 +27,9 @@ $allowed_html = array(
 	),
 );
 ?>
-
+<script>
+    location.href='/my-account/edit-address/'
+</script>
 <p>
 	<?php
 	printf(

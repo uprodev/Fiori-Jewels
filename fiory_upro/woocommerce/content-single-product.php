@@ -66,14 +66,14 @@ if ( post_password_required() ) {
                     <p class="cost">
                         <?= woocommerce_template_single_price() ?>
                     </p>
-                    <p><a href="#">Size guide</a></p>
+                    <?php do_action('woocommerce_size_chart_position') ?>
+
+
+
                 </div>
 
                 <?php woocommerce_template_single_add_to_cart() ?>
                 <div action="#">
-
-
-
 
                     <div class="details details-text">
                         <h6>Details</h6>
@@ -85,8 +85,15 @@ if ( post_password_required() ) {
                         </div>
                     </div>
 
+                    <div class="details details-text">
+                        <h6>PRODUCT INFORMATION</h6>
+                        <div class="content-details">
+                            <div>
+                                <?php wc_display_product_attributes($product) ?>
 
-
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>

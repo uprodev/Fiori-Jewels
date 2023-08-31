@@ -25,6 +25,9 @@ function bbloomer_myaccount_remove_orders_tab( $items ) {
     unset( $items['downloads'] );
     unset( $items['edit-account'] );
     unset( $items['customer-logout'] );
+    unset( $items['payment-methods'] );
+
+
     $items['edit-address'] = 'PERSONAL DATA ';
     $items['shipping'] = 'ADDRESSES';
     $items['orders'] = 'MY ORDERS';
@@ -113,3 +116,11 @@ function remove_and_strip_shortcode() {
     // вырезаем
     add_filter( 'the_content', $fn__strip_myshortcode, 5 );
 }
+
+
+add_filter( 'woocommerce_product_variation_title_include_attributes', '__return_false' );
+add_filter( 'woocommerce_is_attribute_in_product_name', '__return_false' );
+
+add_filter( 'add_hook_custom_size_chart_position', function($f){
+    return 'woocommerce_size_chart_position';
+} );

@@ -1,4 +1,10 @@
-<?php get_header(); ?>
+<?php
+
+/*
+Template Name: Account
+*/
+
+get_header(); ?>
 
 <?php global $more;
 while( have_posts() ) : the_post();

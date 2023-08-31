@@ -100,12 +100,8 @@
     <div class="content-width">
       <div class="logo-line">
         <div class="left">
-          <div class="nice-select">
-            <span class="current">AED</span>
-            <ul class="list">
-              <li class="option selected">AED</li>
-              <li class="option">USD</li>
-            </ul>
+          <div class="nice-select0">
+            <?= do_shortcode('[woo_multi_currency]') ?>
           </div>
         </div>
 

@@ -82,13 +82,13 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
             <h6><span>ORDER TOTAL</span> <span><?php wc_cart_totals_order_total_html(); ?></span></h6>
         </div>
         <div class="btn-wrap">
-            <a href="<?php the_permalink(11) ?>" class="btn-default">PROCEED TO CHECKOUT</a>
+            <a href="<?php the_permalink(10) ?>" class="btn-default">CART</a>
         </div>
         <div class="or">
             <p><span>OR</span></p>
         </div>
         <div class="btn-wrap">
-            <a href="#" class="btn-default">EXPRESS CHECKOUT</a>
+            <a href="<?php the_permalink(11) ?>" class="btn-default">CHECKOUT</a>
         </div>
     </div>
     <a href="#" class="close-like">

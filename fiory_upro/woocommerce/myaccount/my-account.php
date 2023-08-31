@@ -50,19 +50,9 @@ defined( 'ABSPATH' ) || exit;
                 <?php
                 do_action( 'woocommerce_account_navigation' ); ?>
 
-                <ul class="tabs-menu">
-                    <li class="is-active"><a href="#">PERSONAL DATA</a></li>
-                    <li><a href="#">MY ORDERS</a></li>
-                    <li><a href="#">WISHLIST</a></li>
-                    <li><a href="#">REFER A FRIEND</a></li>
-                    <li><a href="#">ADDRESSES</a></li>
-                </ul>
             </div>
             <div class="tab-content">
                 <div class="tab-item item-data">
-
-
-
 
 
                     <?php

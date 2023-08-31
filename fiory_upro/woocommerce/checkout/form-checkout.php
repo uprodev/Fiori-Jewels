@@ -121,20 +121,9 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
                 </div>
                 <div class="right">
-                    <div class="item-border">
-                        <h6>EXPRESS CHECKOUT</h6>
-                        <div class="item-border-content">
-                            <a href="#" class="btn-default"><img src="<?= get_template_directory_uri() ?>/img/icon-29-1.svg" alt=""></a>
-                            <a href="#" class="btn-default"><img src="<?= get_template_directory_uri() ?>/img/icon-29-2.svg" alt=""></a>
-                            <a href="#" class="btn-default btn-yellow"><img src="<?= get_template_directory_uri() ?>/img/icon-29-3.svg" alt=""></a>
-                            <a href="#" class="btn-default"><img src="<?= get_template_directory_uri() ?>/img/icon-29-4.svg" alt=""></a>
-                        </div>
-                    </div>
+
 
                     <div class="mob-wrap">
-                        <div class="or">
-                            <p>or</p>
-                        </div>
 
                         <?php if (!is_user_logged_in()) { ?>
                         <p class="no-login">Already have an account? <a href="/login/">Log In</a></p>

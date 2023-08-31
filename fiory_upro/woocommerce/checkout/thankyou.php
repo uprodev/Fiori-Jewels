@@ -18,7 +18,9 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<div class="woocommerce-order">
+<section class="shopping checkout">
+    <div class="content-width">
+        <div class="woocommerce-order">
 
 	<?php
 	if ( $order ) :
@@ -86,3 +88,5 @@ defined( 'ABSPATH' ) || exit;
 	<?php endif; ?>
 
 </div>
+    </div>
+</section>

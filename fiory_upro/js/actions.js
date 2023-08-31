@@ -415,7 +415,7 @@ jQuery(document).ready(function ($) {
 
   /* add to cart */
 
-  $(document).on('click', '.add-to-cart', function (e) {
+    $(document).on('click', '.add-to-cart', function (e) {
     e.preventDefault();
 
     var width = $(window).width();

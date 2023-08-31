@@ -72,7 +72,7 @@ endswitch;
             <h6><a href="<?= $product->get_permalink() ?>"><?= $product->get_title() ?></a></h6>
             <p class="cost"><?= $product->get_price_html() ?></p>
             <div class="like-wrap">
-                <a href="#"><i class="far fa-heart"></i></a>
+                <?= do_shortcode('[yith_wcwl_add_to_wishlist]') ?>
             </div>
         </div>
         <div class="wrap-hover">

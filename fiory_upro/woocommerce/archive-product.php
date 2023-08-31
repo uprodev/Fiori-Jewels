@@ -186,7 +186,7 @@ do_action( 'woocommerce_before_main_content' );
                     </div>
                 </div>
                 <div class="share-line">
-                    <h6>SHAPE</h6>
+
                     <div class="wrap">
                         <div action="#" class="form">
                             <?php global $shape; $shape = 1 ?>

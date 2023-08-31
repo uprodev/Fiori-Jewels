@@ -70,41 +70,43 @@ do_action( 'woocommerce_before_cart' ); ?>
                         ?>
 
                         <div class="item">
-                    <figure>
-                        <?php
-                        $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+                            <figure>
+                                <?php
+                                $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
 
-                        if ( ! $product_permalink ) {
-                            echo $thumbnail; // PHPCS: XSS ok.
-                        } else {
-                            printf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $thumbnail ); // PHPCS: XSS ok.
-                        }
-                        ?>
-                    </figure>
-                    <div class="text">
-                        <h6><a href="<?= $product_permalink ?>"><?= $_product->get_name() ?></a></h6>
-                        <p>Carat Weight: <span>1 ctw</span></p>
-                        <p>Metal: <span>Yellow Gold</span></p>
-                        <p>Ring Size: <span>6</span></p>
-                    </div>
-                    <div class="col-wrap">
-                        <div class="input-number ">
-                            <div class="btn-count btn-count-plus"><i class="fa fa-plus"></i></div>
-                            <input  type="text" name="<?= "cart[{$cart_item_key}][qty]" ?>" value="<?= $cart_item['quantity'] ?>" class="form-control qty"/>
-                            <div class="btn-count btn-count-minus"><i class="fa fa-minus"></i></div>
+                                if ( ! $product_permalink ) {
+                                    echo $thumbnail; // PHPCS: XSS ok.
+                                } else {
+                                    printf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $thumbnail ); // PHPCS: XSS ok.
+                                }
+                                ?>
+                            </figure>
+                            <div class="text">
+                                <h6><a href="<?= $product_permalink ?>"><?= $_product->get_name() ?></a></h6>
+                                <?php
+                                do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
+                                echo wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok
+                                //
+                                 ?>
+                            </div>
+                            <div class="col-wrap">
+                                <div class="input-number ">
+                                    <div class="btn-count btn-count-plus"><i class="fa fa-plus"></i></div>
+                                    <input  type="text" name="<?= "cart[{$cart_item_key}][qty]" ?>" value="<?= $cart_item['quantity'] ?>" class="form-control qty"/>
+                                    <div class="btn-count btn-count-minus"><i class="fa fa-minus"></i></div>
+                                </div>
+                            </div>
+                            <div class="price-wrap">
+                                <p><?php
+                                    echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
+                                    ?>
+                                </p>
+                            </div>
+                            <div class="bottom delete-item">
+        <!--                        <a href="#"><img src="--><?//= get_template_directory_uri() ?><!--/img/icon-28-1.svg" alt=""></a>-->
+                                <a data-hash="<?= $cart_item_key ?>" href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-28-2.svg" alt="">Delete</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="price-wrap">
-                        <p><?php
-                            echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
-                            ?>
-                        </p>
-                    </div>
-                    <div class="bottom delete-item">
-<!--                        <a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-28-1.svg" alt="">Edit</a>-->
-                        <a data-hash="<?= $cart_item_key ?>" href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-28-2.svg" alt="">Delete</a>
-                    </div>
-                </div>
 
                         <?php
                     }
