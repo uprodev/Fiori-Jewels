@@ -4,124 +4,118 @@ Template Name: Diamonds quiz result
 */
 ?>
 
+<?php
+if ($_GET['price']) {
+    $curr = get_woocommerce_currency();
+    $price = explode('-', $_GET['price']);
+
+    if ($curr == 'AED') {
+        $price[0] = $price[0] / 0.27;
+        $price[1] = $price[1] / 0.27;
+    }
+
+
+
+    $q = new WP_Query([
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        //'pa_shape' => $_GET['pa_shape'],
+        'posts_per_page' => 3,
+        'tax_query' => [
+            'relation' => 'OR',
+            [
+                'taxonomy' => 'pa_shape',
+                'include_children' => true,
+                'operator' => 'IN',
+                'terms' => $_GET['pa_shape'],
+                'field' => 'slug',
+            ],
+            [
+                'taxonomy' => 'pa_cut',
+                'include_children' => true,
+                'operator' => 'IN',
+                'terms' => $_GET['pa_cut'],
+                'field' => 'slug',
+            ]
+
+        ],
+        'meta_query' => [
+            [
+                'key' => '_price',
+                'value' => [(int)$price[0], (int)$price[1]],
+                'compare' => 'BETWEEN',
+                'type' => 'numeric'
+            ]
+        ]
+    ]);
+}
+?>
+
+
 <?php get_header(); ?>
 
 <?php get_template_part('parts/breadcrumbs') ?>
 
 <section class="test-complete">
 	<div class="content-width">
-		<h2>Here are your results <b>the best diamonds according to your taste</b></h2>
-		<div class="content-wrap">
-			<div class="content">
-				<div class="item">
-					<figure>
-						<img src="img/img-20.png" alt="">
-					</figure>
-					<div class="info">
-						<ul>
-							<li>
-								<p>Cut </p>
-								<p><b>Ideal</b></p>
-							</li>
-							<li>
-								<p>Clarity</p>
-								<p><b>VS2</b></p>
-							</li>
-							<li>
-								<p>Color </p>
-								<p><b>I</b></p>
-							</li>
-							<li>
-								<p>Carat</p>
-								<p><b>0.94</b></p>
-							</li>
-						</ul>
-					</div>
-					<div class="cost">
-						<p>$1058</p>
-					</div>
-					<div class="btn-wrap">
-						<a href="#" class="btn-default">SELECT</a>
-					</div>
-					<div class="link">
-						<a href="#">More diamond details</a>
-					</div>
-				</div>
-				<div class="item">
-					<figure>
-						<img src="img/img-20.png" alt="">
-					</figure>
-					<div class="info">
-						<ul>
-							<li>
-								<p>Cut </p>
-								<p><b>Ideal</b></p>
-							</li>
-							<li>
-								<p>Clarity</p>
-								<p><b>VS2</b></p>
-							</li>
-							<li>
-								<p>Color </p>
-								<p><b>I</b></p>
-							</li>
-							<li>
-								<p>Carat</p>
-								<p><b>0.94</b></p>
-							</li>
-						</ul>
-					</div>
-					<div class="cost">
-						<p>$1058</p>
-					</div>
-					<div class="btn-wrap">
-						<a href="#" class="btn-default">SELECT</a>
-					</div>
-					<div class="link">
-						<a href="#">More diamond details</a>
-					</div>
-				</div>
-				<div class="item">
-					<figure>
-						<img src="img/img-20.png" alt="">
-					</figure>
-					<div class="info">
-						<ul>
-							<li>
-								<p>Cut </p>
-								<p><b>Ideal</b></p>
-							</li>
-							<li>
-								<p>Clarity</p>
-								<p><b>VS2</b></p>
-							</li>
-							<li>
-								<p>Color </p>
-								<p><b>I</b></p>
-							</li>
-							<li>
-								<p>Carat</p>
-								<p><b>0.94</b></p>
-							</li>
-						</ul>
-					</div>
-					<div class="cost">
-						<p>$1058</p>
-					</div>
-					<div class="btn-wrap">
-						<a href="#" class="btn-default">SELECT</a>
-					</div>
-					<div class="link">
-						<a href="#">More diamond details</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="bottom">
-			<a href="#" class="link-img">Retake the quiz <img src="img/arrow.svg" alt=""></a>
-			<p>OR</p>
-			<a href="#" class="cursive">Speak to diamond expert</a>
-		</div>
+        <?php if ($q->have_posts()) { ?>
+            <h2>Here are your results <b>the best diamonds according to your taste</b></h2>
+            <div class="content-wrap">
+                <div class="content">
+
+
+                    <?php while ($q->have_posts()) {
+                        $q->the_post();
+                        $product = new WC_Product(get_the_id())?>
+                        <div class="item">
+                            <figure>
+
+                                    <img src="<?= get_the_post_thumbnail_url(get_the_id(), 'large') ?>" alt="">
+
+                            </figure>
+                            <div class="info">
+                                <ul>
+                                    <?php
+                                    $taxonomies = [
+                                        'pa_cut', 'pa_clarity', 'pa_color', 'pa_carat'
+                                    ];
+
+                                    foreach ($taxonomies as $tax) {
+                                        $taxonomy = get_taxonomy($tax);
+                                        $terms = get_the_terms(get_the_id(), $tax);
+                                        if (empty($terms))
+                                            continue;
+
+                                    ?>
+
+                                    <li>
+                                        <p><?= str_replace('Product ', '', $taxonomy->label) ?> </p>
+                                        <p><b><?= $terms[0]->name ?></b></p>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                            <div class="cost">
+                                <p><?= $product->get_price_html() ?></p>
+                            </div>
+                            <div class="btn-wrap">
+                                <a href="<?= $product->get_permalink() ?>" class="btn-default">SELECT</a>
+                            </div>
+                            <div class="link">
+                                <a href="<?= $product->get_permalink() ?>">More diamond details</a>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+
+                </div>
+            </div>
+            <div class="bottom">
+                <a href="#" class="link-img">Retake the quiz <img src="<?= get_template_directory_uri() ?>/img/arrow.svg" alt=""></a>
+                <p>OR</p>
+                <a href="#" class="cursive">Speak to diamond expert</a>
+            </div>
+        <?php } ?>
 	</div>
 </section>
 
@@ -133,66 +127,36 @@ Template Name: Diamonds quiz result
 					<div class="filter-item filter-item-1">
 						<h6>SHAPE</h6>
 						<div class="wrap">
-							<div class="item">
-								<input type="checkbox" name="select-1" id="select-1">
-								<label for="select-1">
-									<img src="img/filter-1-1.svg" alt="">
-								</label>
-							</div>
-							<div class="item">
-								<input type="checkbox" name="select-2" id="select-2">
-								<label for="select-2">
-									<img src="img/filter-1-2.svg" alt="">
-								</label>
-							</div>
-							<div class="item">
-								<input type="checkbox" name="select-3" id="select-3">
-								<label for="select-3">
-									<img src="img/filter-1-3.svg" alt="">
-								</label>
-							</div>
-							<div class="item">
-								<input type="checkbox" name="select-4" id="select-4">
-								<label for="select-4">
-									<img src="img/filter-1-4.svg" alt="">
-								</label>
-							</div>
-							<div class="item">
-								<input type="checkbox" name="select-5" id="select-5">
-								<label for="select-5">
-									<img src="img/filter-1-5.svg" alt="">
-								</label>
-							</div>
-							<div class="item">
-								<input type="checkbox" name="select-6" id="select-6">
-								<label for="select-6">
-									<img src="img/filter-1-6.svg" alt="">
-								</label>
-							</div>
-							<div class="item">
-								<input type="checkbox" name="select-7" id="select-7">
-								<label for="select-7">
-									<img src="img/filter-1-7.svg" alt="">
-								</label>
-							</div>
-							<div class="item">
-								<input type="checkbox" name="select-8" id="select-8">
-								<label for="select-8">
-									<img src="img/filter-1-8.svg" alt="">
-								</label>
-							</div>
-							<div class="item">
-								<input type="checkbox" name="select-9" id="select-9">
-								<label for="select-9">
-									<img src="img/filter-1-9.svg" alt="">
-								</label>
-							</div>
-							<div class="item">
-								<input type="checkbox" name="select-10" id="select-10">
-								<label for="select-10">
-									<img src="img/filter-1-10.svg" alt="">
-								</label>
-							</div>
+
+                            <?php
+                            $terms = get_terms( [
+                                'taxonomy' => 'pa_shape',
+                                'hide_empty' => 1,
+                            ] );
+                            ?>
+                            <?php foreach ($terms as $index => $term) {
+
+                                $field = get_field('icon', 'term_' . $term->term_id);
+//                                if (!$field)
+//                                    continue;
+                                ?>
+
+                                <div class="item">
+                                    <input type="checkbox" name="select-1" id="select-<?= $index + 1 ?>" value="<?= $term->term_id ?>">
+                                    <label for="select-<?= $index + 1 ?>">
+
+                                    <?php if ($field = get_field('icon', 'term_' . $term->term_id)) { ?>
+                                        <?= wp_get_attachment_image($field['ID'], 'full') ?>
+                                    <?php } else {
+
+                                        echo $term->name;
+                                    } ?>
+
+
+                                    </label>
+                                </div>
+                            <?php } ?>
+
 						</div>
 					</div>
 					<div class="filter-item filter-item-2">
@@ -300,43 +264,43 @@ Template Name: Diamonds quiz result
 						<ul>
 							<li>
 								<input type="checkbox" name="filter-1-1" id="filter-1-1">
-								<label for="filter-1-1"><img src="img/filter-1-1.svg" alt=""></label>
+								<label for="filter-1-1"><img src="<?= get_template_directory_uri() ?>/img/filter-1-1.svg" alt=""></label>
 							</li>
 							<li>
 								<input type="checkbox" name="filter-1-2" id="filter-1-2">
-								<label for="filter-1-2"><img src="img/filter-1-2.svg" alt=""></label>
+								<label for="filter-1-2"><img src="<?= get_template_directory_uri() ?>/img/filter-1-2.svg" alt=""></label>
 							</li>
 							<li>
 								<input type="checkbox" name="filter-1-3" id="filter-1-3">
-								<label for="filter-1-3"><img src="img/filter-1-3.svg" alt=""></label>
+								<label for="filter-1-3"><img src="<?= get_template_directory_uri() ?>/img/filter-1-3.svg" alt=""></label>
 							</li>
 							<li>
 								<input type="checkbox" name="filter-1-4" id="filter-1-4">
-								<label for="filter-1-4"><img src="img/filter-1-4.svg" alt=""></label>
+								<label for="filter-1-4"><img src="<?= get_template_directory_uri() ?>/img/filter-1-4.svg" alt=""></label>
 							</li>
 							<li>
 								<input type="checkbox" name="filter-1-5" id="filter-1-5">
-								<label for="filter-1-5"><img src="img/filter-1-5.svg" alt=""></label>
+								<label for="filter-1-5"><img src="<?= get_template_directory_uri() ?>/img/filter-1-5.svg" alt=""></label>
 							</li>
 							<li>
 								<input type="checkbox" name="filter-1-6" id="filter-1-6">
-								<label for="filter-1-6"><img src="img/filter-1-6.svg" alt=""></label>
+								<label for="filter-1-6"><img src="<?= get_template_directory_uri() ?>/img/filter-1-6.svg" alt=""></label>
 							</li>
 							<li>
 								<input type="checkbox" name="filter-1-7" id="filter-1-7">
-								<label for="filter-1-7"><img src="img/filter-1-7.svg" alt=""></label>
+								<label for="filter-1-7"><img src="<?= get_template_directory_uri() ?>/img/filter-1-7.svg" alt=""></label>
 							</li>
 							<li>
 								<input type="checkbox" name="filter-1-8" id="filter-1-8">
-								<label for="filter-1-8"><img src="img/filter-1-8.svg" alt=""></label>
+								<label for="filter-1-8"><img src="<?= get_template_directory_uri() ?>/img/filter-1-8.svg" alt=""></label>
 							</li>
 							<li>
 								<input type="checkbox" name="filter-1-9" id="filter-1-9">
-								<label for="filter-1-9"><img src="img/filter-1-9.svg" alt=""></label>
+								<label for="filter-1-9"><img src="<?= get_template_directory_uri() ?>/img/filter-1-9.svg" alt=""></label>
 							</li>
 							<li>
 								<input type="checkbox" name="filter-1-10" id="filter-1-10">
-								<label for="filter-1-10"><img src="img/filter-1-10.svg" alt=""></label>
+								<label for="filter-1-10"><img src="<?= get_template_directory_uri() ?>/img/filter-1-10.svg" alt=""></label>
 							</li>
 						</ul>
 					</div>
@@ -379,12 +343,12 @@ Template Name: Diamonds quiz result
 								<div class="col col-4">I</div>
 								<div class="col col-5">Ideal</div>
 								<div class="col col-6">$862</div>
-								<div class="col col-7"><img src="img/icon-18.svg" alt=""></div>
+								<div class="col col-7"><img src="<?= get_template_directory_uri() ?>/img/icon-18.svg" alt=""></div>
 							</div>
 							<div class="detail">
 								<div class="img-line">
 									<figure>
-										<img src="img/img-19.jpg" alt="">
+										<img src="<?= get_template_directory_uri() ?>/img/img-19.jpg" alt="">
 										<div class="like-wrap">
 											<a href="#"><i class="far fa-heart"></i></a>
 										</div>
@@ -393,33 +357,33 @@ Template Name: Diamonds quiz result
 										<div class="swiper slider-p-1">
 											<div class="swiper-wrapper">
 												<div class="swiper-slide">
-													<img src="img/h-1.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-1.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-2.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-2.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-3.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-3.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-5.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-5.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-4.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-4.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 											</div>
@@ -434,23 +398,23 @@ Template Name: Diamonds quiz result
 								<ul>
 									<li>
 										<p>Cut: <span>Ideal</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 									<li>
 										<p>COLOR: <span>I</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 									<li>
 										<p>CLARITY: <span>VS2</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 									<li>
 										<p>CERTIFICATE: <span>Fiori Diamond Certificate</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 								</ul>
 								<div class="btn-wrap">
-									<a href="#" class="link">Speak to diamond expert <img src="img/icon-9.svg" alt=""></a>
+									<a href="#" class="link">Speak to diamond expert <img src="<?= get_template_directory_uri() ?>/img/icon-9.svg" alt=""></a>
 									<a href="#" class="btn-default">SELECT</a>
 								</div>
 							</div>
@@ -464,12 +428,12 @@ Template Name: Diamonds quiz result
 								<div class="col col-4">I</div>
 								<div class="col col-5">Ideal</div>
 								<div class="col col-6">$862</div>
-								<div class="col col-7"><img src="img/icon-18.svg" alt=""></div>
+								<div class="col col-7"><img src="<?= get_template_directory_uri() ?>/img/icon-18.svg" alt=""></div>
 							</div>
 							<div class="detail">
 								<div class="img-line">
 									<figure>
-										<img src="img/img-19.jpg" alt="">
+										<img src="<?= get_template_directory_uri() ?>/img/img-19.jpg" alt="">
 										<div class="like-wrap">
 											<a href="#"><i class="far fa-heart"></i></a>
 										</div>
@@ -478,33 +442,33 @@ Template Name: Diamonds quiz result
 										<div class="swiper slider-p-2">
 											<div class="swiper-wrapper">
 												<div class="swiper-slide">
-													<img src="img/h-1.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-1.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-2.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-2.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-3.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-3.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-5.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-5.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-4.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-4.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 											</div>
@@ -519,23 +483,23 @@ Template Name: Diamonds quiz result
 								<ul>
 									<li>
 										<p>Cut: <span>Ideal</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 									<li>
 										<p>COLOR: <span>I</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 									<li>
 										<p>CLARITY: <span>VS2</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 									<li>
 										<p>CERTIFICATE: <span>Fiori Diamond Certificate</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 								</ul>
 								<div class="btn-wrap">
-									<a href="#" class="link">Speak to diamond expert <img src="img/icon-9.svg" alt=""></a>
+									<a href="#" class="link">Speak to diamond expert <img src="<?= get_template_directory_uri() ?>/img/icon-9.svg" alt=""></a>
 									<a href="#" class="btn-default">SELECT</a>
 								</div>
 							</div>
@@ -549,12 +513,12 @@ Template Name: Diamonds quiz result
 								<div class="col col-4">I</div>
 								<div class="col col-5">Ideal</div>
 								<div class="col col-6">$862</div>
-								<div class="col col-7"><img src="img/icon-18.svg" alt=""></div>
+								<div class="col col-7"><img src="<?= get_template_directory_uri() ?>/img/icon-18.svg" alt=""></div>
 							</div>
 							<div class="detail">
 								<div class="img-line">
 									<figure>
-										<img src="img/img-19.jpg" alt="">
+										<img src="<?= get_template_directory_uri() ?>/img/img-19.jpg" alt="">
 										<div class="like-wrap">
 											<a href="#"><i class="far fa-heart"></i></a>
 										</div>
@@ -563,33 +527,33 @@ Template Name: Diamonds quiz result
 										<div class="swiper slider-p-3">
 											<div class="swiper-wrapper">
 												<div class="swiper-slide">
-													<img src="img/h-1.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-1.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-2.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-2.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-3.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-3.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-5.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-5.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 												<div class="swiper-slide">
-													<img src="img/h-4.png" alt="">
+													<img src="<?= get_template_directory_uri() ?>/img/h-4.png" alt="">
 													<div class="product-img">
-														<img src="img/p-1.svg" alt="">
+														<img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
 													</div>
 												</div>
 											</div>
@@ -604,23 +568,23 @@ Template Name: Diamonds quiz result
 								<ul>
 									<li>
 										<p>Cut: <span>Ideal</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 									<li>
 										<p>COLOR: <span>I</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 									<li>
 										<p>CLARITY: <span>VS2</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 									<li>
 										<p>CERTIFICATE: <span>Fiori Diamond Certificate</span></p>
-										<a href="#"><img src="img/icon-19.svg" alt=""></a>
+										<a href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-19.svg" alt=""></a>
 									</li>
 								</ul>
 								<div class="btn-wrap">
-									<a href="#" class="link">Speak to diamond expert <img src="img/icon-9.svg" alt=""></a>
+									<a href="#" class="link">Speak to diamond expert <img src="<?= get_template_directory_uri() ?>/img/icon-9.svg" alt=""></a>
 									<a href="#" class="btn-default">SELECT</a>
 								</div>
 							</div>

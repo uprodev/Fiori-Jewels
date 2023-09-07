@@ -9,7 +9,7 @@ function load_style_script(){
 	wp_enqueue_style('my-normalize', get_template_directory_uri() . '/css/normalize.css');
 	wp_enqueue_style('my-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
 	wp_enqueue_style('my-font', get_template_directory_uri() . '/css/font.css');
-	//wp_enqueue_style('my-fontawesome', get_template_directory_uri() . '/fonts/FA5PRO-master/css/all.css');
+	wp_enqueue_style('my-fontawesome', get_template_directory_uri() . '/fonts/FA5PRO-master/css/all.css');
 	wp_enqueue_style('my-fontawesome-2', get_template_directory_uri() . '/font-awesome-4.7.0/css/font-awesome.min.css');
 	wp_enqueue_style('my-fancybox', get_template_directory_uri() . '/css/jquery.fancybox.min.css');
 	wp_enqueue_style('my-intlTelInput', get_template_directory_uri() . '/css/intlTelInput.min.css');

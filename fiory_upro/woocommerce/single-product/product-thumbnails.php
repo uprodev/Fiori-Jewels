@@ -45,13 +45,14 @@ $attachment_ids = $product->get_gallery_image_ids();
         <?php }
         }?>
 
-        <div class="slider-wrap">
+        <?php if (get_field('ring')) { ?>
+            <div class="slider-wrap">
             <div class="swiper slider-p-1">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <img src="<?= get_template_directory_uri() ?>/img/h-1.png" alt="">
                         <div class="product-img">
-                            <img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
+                            <img src="<?= get_field('ring')['url'] ?>" alt="">
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -86,6 +87,7 @@ $attachment_ids = $product->get_gallery_image_ids();
                 <p>Darker</p>
             </div>
         </div>
+        <?php } ?>
     </div>
     <div class="mob-block">
         <div class="swiper mob-product-img">
