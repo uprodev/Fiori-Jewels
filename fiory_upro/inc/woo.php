@@ -124,3 +124,19 @@ add_filter( 'woocommerce_is_attribute_in_product_name', '__return_false' );
 add_filter( 'add_hook_custom_size_chart_position', function($f){
     return 'woocommerce_size_chart_position';
 } );
+
+
+
+if ( ! function_exists( 'yith_wcwl_berocket_filters_compatibility' ) ) {
+    function yith_wcwl_berocket_filters_compatibility() {
+        wp_add_inline_script(
+            'jquery-yith-wcwl',
+            "
+				jQuery( function( $ ) {
+					$(document).on( 'berocket_ajax_products_loaded', function() { $(document).trigger('yith_wcwl_init') } );
+				} );
+			"
+        );
+    }
+    add_action( 'wp_enqueue_scripts', 'yith_wcwl_berocket_filters_compatibility' );
+}

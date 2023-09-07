@@ -52,9 +52,15 @@ foreach( $terms as $i => $term ) {
             </span>';
     }
 
+    $post_id = get_the_id();
 
 
-    $term_name = $shape ? '' : $term->name;
+
+
+    if (get_the_id() == 570 && $term->taxonomy == 'pa_shape')
+        $term_name = '';
+    else
+        $term_name = $shape ? '' : $term->name;
 
     $element_unique = $filter_unique_class.'_'.$term->term_id;
     $terms_content['element_'.$i] = apply_filters('BeRocket_AAPF_template_single_item', array(

@@ -505,6 +505,45 @@ jQuery(document).ready(function ($) {
 
 
 
+  $(document).on('change', '.filter-quiz input', function () {
+    var data = $('.filter-quiz').serialize();
+    $('.table-wrap').block({
+      message: null,
+      overlayCSS: {
+        background: '#fff',
+        opacity: 0.4
+      }
+    })
+
+    $.ajax({
+      url: wc_add_to_cart_params.ajax_url,
+      data: data,
+      success: function (data) {
+        $( document.body ).trigger( 'wc_fragment_refresh' );
+        $('.table-wrap').unblock()
+
+
+        console.log(data)
+        $('.table-wraps').html(data.data)
+
+      },
+    });
+  })
+
+
+  $(document).on('change', '.quiz-ordering input', function(){
+    var val = $(this).val();
+    var checked = $(this).prop('checked')
+
+    if (checked) {
+      val = 'price-desc';
+    } else
+      val = 'price'
+
+       $('.woocommerce-ordering select option[value="'+ val + '"]').prop('selected', true);
+    $('.woocommerce-ordering select').trigger('change');
+  })
+
 
 
 });

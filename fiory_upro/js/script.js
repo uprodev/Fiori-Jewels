@@ -653,7 +653,7 @@ jQuery(document).ready(function ($) {
   $(document).on('click', '.filter-btn', function (e){
     e.preventDefault();
 
-    if(window.innerWidth > 767){
+    if(window.innerWidth > 300){
 
       $(this).toggleClass('is-active');
       if($(this).hasClass('is-active')){
@@ -742,7 +742,7 @@ jQuery(document).ready(function ($) {
 
 
   /*show/hide content checkout*/
-  $(document).on('click', '.shopping .mob-change-block h6', function (e) {
+  $(document).on('click', '.mob-change-block h6', function (e) {
     e.preventDefault();
     $(this).toggleClass('is-open');
     $('.shopping').toggleClass('is-show');

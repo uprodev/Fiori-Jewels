@@ -12,7 +12,8 @@ $actions = [
     'save_personal_data',
     'add_ticket',
     'add_to_fav',
-    'add_to_cart'
+    'add_to_cart',
+    'filter_quiz'
 
 ];
 foreach ($actions as $action) {
@@ -411,44 +412,6 @@ function order_viewed()
 
 
 
-
-function add_ticket() {
-
-
-    check_ajax_referer( 'add_ticket', 'security' );
-
-    $post_id = wp_insert_post([
-        'post_type' => 'ticket',
-        'post_status' => 'publish',
-        'post_title' => $_POST['message'],
-        'post_author' => $_POST['user_id'],
-    ]);
-
-    update_field('status', 'В процессе', $post_id);
-    update_field('order_id', $_POST['order_id'], $post_id);
-
-
-    wp_send_json(
-        [
-            'post_id' => $post_id,
-
-        ]
-    );
-
-    wp_die();
-
-}
-
-
-function add_to_fav() {
-    $user_id = $_POST['user_id'];
-    $fav = $_POST['fav'];
-    update_field('fav',$fav, 'user_'.$user_id);
-
-
-    wp_die();
-}
-
 /**
  * add_to_cart
  */
@@ -474,5 +437,17 @@ function add_to_cart()
 
     //   WC_AJAX::get_refreshed_fragments();
     wp_die();
+}
+
+
+/**
+ * filter_quiz
+ */
+
+
+function filter_quiz() {
+    wp_send_json([
+        'data' => $_GET
+    ]);
 }
 

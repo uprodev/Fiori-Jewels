@@ -25,13 +25,15 @@ if ( ! function_exists( 'wc_get_gallery_image_html' ) ) {
 global $product;
 
 $attachment_ids = $product->get_gallery_image_ids();
+$image = get_the_post_thumbnail_url(get_the_id(), 'large')  ?: wc_placeholder_img_src();
+
 ?>
 
 
     <div class="img-wrap">
         <figure class="full">
             <a href="<?= get_the_post_thumbnail_url(get_the_id(), 'full') ?>" data-fancybox="gallery">
-                <img src="<?= get_the_post_thumbnail_url(get_the_id(), 'large') ?>" alt="">
+                <img src="<?= $image ?>" alt="">
             </a>
         </figure>
         <?php
@@ -39,7 +41,7 @@ $attachment_ids = $product->get_gallery_image_ids();
             foreach ( $attachment_ids as $attachment_id ) { ?>
                 <figure>
                     <a href="<?= get_the_post_thumbnail_url($attachment_id, 'full') ?>" data-fancybox="gallery">
-                    <?php echo   wp_get_attachment_image( $attachment_id, 'large' )   ;   ?>
+                        <?php echo   wp_get_attachment_image( $attachment_id, 'large' )   ;   ?>
                     </a>
                 </figure>
         <?php }
@@ -48,38 +50,8 @@ $attachment_ids = $product->get_gallery_image_ids();
         <?php if (get_field('ring')) { ?>
             <div class="slider-wrap">
             <div class="swiper slider-p-1">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="<?= get_template_directory_uri() ?>/img/h-1.png" alt="">
-                        <div class="product-img">
-                            <img src="<?= get_field('ring')['url'] ?>" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="<?= get_template_directory_uri() ?>/img/h-2.png" alt="">
-                        <div class="product-img">
-                            <img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="<?= get_template_directory_uri() ?>/img/h-3.png" alt="">
-                        <div class="product-img">
-                            <img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="<?= get_template_directory_uri() ?>/img/h-5.png" alt="">
-                        <div class="product-img">
-                            <img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="<?= get_template_directory_uri() ?>/img/h-4.png" alt="">
-                        <div class="product-img">
-                            <img src="<?= get_template_directory_uri() ?>/img/p-1.svg" alt="">
-                        </div>
-                    </div>
-                </div>
+                <?php get_template_part('parts/hand'); ?>
+
             </div>
             <div class="scroll-wrap">
                     <p>Lighter</p>
@@ -93,7 +65,7 @@ $attachment_ids = $product->get_gallery_image_ids();
         <div class="swiper mob-product-img">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="<?= get_the_post_thumbnail_url(get_the_id()) ?>" alt="">
+                    <img src="<?= $image ?>" alt="">
                 </div>
                 <?php
                 if ( $attachment_ids && $product->get_image_id() ) {
@@ -107,7 +79,7 @@ $attachment_ids = $product->get_gallery_image_ids();
         </div>
         <div class="swiper-pagination mob-product-pagination"></div>
         <div class="like-wrap">
-            <a href="#"><i class="far fa-heart"></i></a>
+            <?= do_shortcode('[yith_wcwl_add_to_wishlist]') ?>
         </div>
     </div>
 

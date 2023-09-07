@@ -68,113 +68,6 @@ do_action( 'woocommerce_before_main_content' );
 
                                 <?= do_shortcode('[br_filters_group group_id=13686]') ?>
 
-<!--                                <div class="filter-item">-->
-<!--                                    <h6>BY STYLE</h6>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-20-1" id="check-20-1">-->
-<!--                                        <label for="check-20-1">Solitaire</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-20-2" id="check-20-2">-->
-<!--                                        <label for="check-20-2">Halo </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-20-3" id="check-20-3">-->
-<!--                                        <label for="check-20-3">Three Stone </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-20-4" id="check-20-4">-->
-<!--                                        <label for="check-20-4">Hidden Halo </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-20-5" id="check-20-5">-->
-<!--                                        <label for="check-20-5">Two Stone </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-20-6" id="check-20-6">-->
-<!--                                        <label for="check-20-6">Accents</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-20-7" id="check-20-7">-->
-<!--                                        <label for="check-20-7">Cathedral</label>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="filter-item">-->
-<!--                                    <h6>BY SHAPE</h6>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-21-1" id="check-21-1">-->
-<!--                                        <label for="check-21-1"><span><img src="--><?//= get_template_directory_uri() ?><!--/img/filter-1-1.svg" alt=""></span>Round</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-21-2" id="check-21-2">-->
-<!--                                        <label for="check-21-2"><span><img src="--><?//= get_template_directory_uri() ?><!--/img/filter-1-2.svg" alt=""></span>Oval </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-21-3" id="check-21-3">-->
-<!--                                        <label for="check-21-3"><span><img src="--><?//= get_template_directory_uri() ?><!--/img/filter-1-3.svg" alt=""></span>Pear  </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-21-4" id="check-21-4">-->
-<!--                                        <label for="check-21-4"><span><img src="--><?//= get_template_directory_uri() ?><!--/img/filter-1-4.svg" alt=""></span>Heart</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-21-5" id="check-21-5">-->
-<!--                                        <label for="check-21-5"><span><img src="--><?//= get_template_directory_uri() ?><!--/img/filter-1-5.svg" alt=""></span>Marquise</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-21-6" id="check-21-6">-->
-<!--                                        <label for="check-21-6"><span><img src="--><?//= get_template_directory_uri() ?><!--/img/filter-1-6.svg" alt=""></span>Princess</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-21-7" id="check-21-7">-->
-<!--                                        <label for="check-21-7"><span><img src="--><?//= get_template_directory_uri() ?><!--/img/filter-1-7.svg" alt=""></span>Cushion</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-21-8" id="check-21-8">-->
-<!--                                        <label for="check-21-8"><span><img src="--><?//= get_template_directory_uri() ?><!--/img/filter-1-8.svg" alt=""></span>Emerland</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check">-->
-<!--                                        <input type="checkbox" name="check-21-9" id="check-21-9">-->
-<!--                                        <label for="check-21-9"><span><img src="--><?//= get_template_directory_uri() ?><!--/img/filter-1-9.svg" alt=""></span>Modified Emerland</label>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="filter-item">-->
-<!--                                    <h6>METAL</h6>-->
-<!--                                    <div class="input-wrap-check input-wrap-color">-->
-<!--                                        <input type="checkbox" name="check-22-1" id="check-22-1">-->
-<!--                                        <label for="check-22-1"><img src="--><?//= get_template_directory_uri() ?><!--/img/icon-20-1.svg" alt="">White Gold </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check input-wrap-color">-->
-<!--                                        <input type="checkbox" name="check-22-2" id="check-22-2">-->
-<!--                                        <label for="check-22-2"><img src="--><?//= get_template_directory_uri() ?><!--/img/icon-20-2.svg" alt="">Yellow Gold</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check input-wrap-color">-->
-<!--                                        <input type="checkbox" name="check-22-3" id="check-22-3">-->
-<!--                                        <label for="check-22-3"><img src="--><?//= get_template_directory_uri() ?><!--/img/icon-20-3.svg" alt="">Platinum </label>-->
-<!--                                    </div>-->
-<!--                                    <div class="input-wrap-check input-wrap-color">-->
-<!--                                        <input type="checkbox" name="check-22-4" id="check-22-4">-->
-<!--                                        <label for="check-22-4"><img src="--><?//= get_template_directory_uri() ?><!--/img/icon-20-4.svg" alt="">Rose Gold </label>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="filter-item filter-item-price">-->
-<!--                                    <h6>PRICE</h6>-->
-<!--                                    <div class="range-slider">-->
-<!--                                        <label for="range2"></label>-->
-<!--                                        <input type="text" class="js-range-slider-2" value="" id="range2"/>-->
-<!--                                    </div>-->
-<!--                                    <div class="wrap range-info">-->
-<!--                                        <div>-->
-<!--                                            <label for="from2">from</label>-->
-<!--                                            <input type="text" value="300" class="inp js-from-2 money" id="from2" />-->
-<!--                                        </div>-->
-<!---->
-<!--                                        <div>-->
-<!--                                            <label for="to2">to</label>-->
-<!--                                            <input type="text" value="2430000" class="inp js-to-2 money" id="to2"/>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
                                 <div class="btn-wrap">
 
                                     <?= do_shortcode('[br_filter_single filter_id=17423]') ?>
@@ -225,10 +118,7 @@ do_action( 'woocommerce_before_main_content' );
                     <div class="more">
                        <?php woocommerce_pagination() ?>
                     </div>
-<!--                    <div class="nav">-->
-<!--                        <a href="#"><img src="--><?//= get_template_directory_uri() ?><!--/img/icon-10-1.svg" alt=""></a>-->
-<!--                        <a href="#"><img src="--><?//= get_template_directory_uri() ?><!--/img/icon-10-2.svg" alt=""></a>-->
-<!--                    </div>-->
+
                 </div>
             </div>
         </div>
