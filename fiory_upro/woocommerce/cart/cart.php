@@ -91,9 +91,9 @@ do_action( 'woocommerce_before_cart' ); ?>
                             </div>
                             <div class="col-wrap">
                                 <div class="input-number ">
-                                    <div class="btn-count btn-count-plus"><i class="fa fa-plus"></i></div>
+                                    <div class="btn-count btn-count-plus"><i class="fas fa-plus"></i></div>
                                     <input  type="text" name="<?= "cart[{$cart_item_key}][qty]" ?>" value="<?= $cart_item['quantity'] ?>" class="form-control qty"/>
-                                    <div class="btn-count btn-count-minus"><i class="fa fa-minus"></i></div>
+                                    <div class="btn-count btn-count-minus"><i class="fas fa-minus"></i></div>
                                 </div>
                             </div>
                             <div class="price-wrap">
