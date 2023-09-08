@@ -287,7 +287,9 @@
 
   .cabinet .tab-content {
     width: calc(100% - 415px); }
-
+  .catalog-product .nice-select .list {
+    left: -75px;
+  }
   .friend-popup h2 b {
     font-size: 36px; } }
 @media (max-width: 1199px) {
@@ -1435,8 +1437,8 @@
   .test-wrap .step-3-content .text {
     width: 100%; }
 
-  .catalog-product .filter-line .wrap .nice-select {
-    display: none; }
+ /* .catalog-product .filter-line .wrap .nice-select {
+    display: none; }*/
 
   .catalog-product .filter-line .wrap .mob-fancybox {
     color: #3D3937;
@@ -1716,7 +1718,8 @@
   .shopping .item .col-wrap{
     margin: 0;
   }
-
+  .catalog-product .filter-line .wrap-2{
+  }
   .test-popup .steps-wrap ul:before {
     left: 95px;
     right: 95px; } }
@@ -3857,7 +3860,9 @@
     width: 300px;
     padding: 30px 20px;
   }
-
+  .catalog-product .nice-select .list {
+    left: -100px;
+  }
   #filter-quiz .filter-item-1 .berocket_single_filter_widget:first-child ul {
     grid-template-columns: repeat(4, 40px);
     grid-gap: 0 25px;
