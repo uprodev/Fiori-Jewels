@@ -147,6 +147,11 @@
   .cabinet .item-wishlist .shopping .item .col-wrap {
     width: 145px; }
 
+  .catalog .filter-wrap .filter-item-1 .berocket_single_filter_widget:first-child ul {
+
+    grid-gap: 0 35px;
+  }
+
   .duration .right {
     width: 600px; } }
 @media (max-width: 1280px) {
@@ -288,6 +293,10 @@
 @media (max-width: 1199px) {
   .content-width {
     width: 960px; }
+
+  #filter-quiz{
+    width: 500px;
+  }
   .shopping .item .col-wrap {
     width: 210px;
   }
@@ -3843,6 +3852,15 @@
   .default-text figure.alignleft{
     width: 100%;
     margin: 0 0 30px;
+  }
+  #filter-quiz{
+    width: 300px;
+    padding: 30px 20px;
+  }
+
+  #filter-quiz .filter-item-1 .berocket_single_filter_widget:first-child ul {
+    grid-template-columns: repeat(4, 40px);
+    grid-gap: 0 25px;
   }
   .test-popup .chose-wrap {
     padding: 0 30px; } }
