@@ -155,8 +155,8 @@ if ($_GET['price']) {
 				</div>
 
 				<div class="filter-line">
-					<a href="#filter-popup" class="fancybox open-filter">FILTERS</a>
-					<a href="#sort-popup" class="fancybox open-sort">SORT BY: <span>All</span></a>
+					<a href="#filter-quiz" class="fancybox open-filter">FILTERS</a>
+					<!--<a href="#sort-popup" class="fancybox open-sort">SORT BY: <span>All</span></a>-->
 				</div>
 				<div class="scroll-line">
 					<h6>SHAPE</h6>

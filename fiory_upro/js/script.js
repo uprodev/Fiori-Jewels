@@ -558,6 +558,17 @@ jQuery(document).ready(function ($) {
     autoFocus:false,
   });
 
+  $(document).on('click', '.catalog .open-filter', function (e){
+    e.preventDefault();
+
+    $.fancybox.open( $('#filter-quize'), {
+      touch:false,
+      autoFocus:false,
+    });
+
+  });
+
+
 
  /* open filter*/
   $(document).on('click', '.filter-popup .item h6', function (e){
