@@ -7004,5 +7004,17 @@ footer .form-subscribe .wpcf7-form-control-wrap{
   top: -2px;
 }
 
+.page-template-account main{
+  overflow: hidden;
+}
+
+p.error{
+  text-align: center!important;
+  color: red!important;
+}
+
+input.error{
+  border-color:red!important;
+}
 
 /*# sourceMappingURL=styles.css.map */
