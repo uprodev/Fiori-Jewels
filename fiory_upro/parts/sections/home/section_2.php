@@ -1,5 +1,5 @@
 <?php
-$wp_query = new WP_Query(array('post_type' => 'product', 'posts_per_page' => -1, 'meta_key' => 'is_new', 'meta_value' => true, 'paged' => get_query_var('paged')));
+$wp_query = new WP_Query(array('post_type' => 'product', 'posts_per_page' => 10, 'meta_key0' => 'is_new', 'meta_value' => true, 'paged' => get_query_var('paged')));
 if($wp_query->have_posts()): ?>
 
 	<section class="product-slider-block woocommerce">

@@ -26,7 +26,7 @@ function ajax_registration()
 {
 
     // First check the nonce, if it fails the function will break
-      check_ajax_referer( 'ajax-registration-nonce', 'security' );
+      check_ajax_referer( 'ajax-login-nonce', 'security' );
 
     if (!filter_var($_POST['billing_email'], FILTER_VALIDATE_EMAIL)) {
         echo json_encode(array(

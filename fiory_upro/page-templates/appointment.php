@@ -29,7 +29,7 @@ Template Name: Appointment
 								<?= wp_get_attachment_image($field['ID'], 'full') ?>
 							</figure>
 						<?php endif ?>
-						
+
 						<div class="text-wrap">
 							<div class="text">
 
@@ -45,7 +45,7 @@ Template Name: Appointment
 
 							<?php if ($field = get_sub_field('link')): ?>
 								<div class="btn-wrap">
-									<a href="<?= $field['url'] ?>" class="btn-default"<?php if($field['target']) echo ' target="_blank"' ?>><?= $field['title'] ?></a>
+									<a href="<?= get_permalink(601) ?>" class="btn-default"<?php if($field['target']) echo ' target="_blank"' ?>><?= $field['title'] ?></a>
 								</div>
 							<?php endif ?>
 
@@ -60,7 +60,7 @@ Template Name: Appointment
 						</p>
 					</div>
 				<?php endif ?>
-				
+
 			<?php endwhile; ?>
 
 		</div>

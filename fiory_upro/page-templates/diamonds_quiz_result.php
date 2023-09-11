@@ -111,9 +111,9 @@ if ($_GET['price']) {
                 </div>
             </div>
             <div class="bottom">
-                <a href="#" class="link-img">Retake the quiz <img src="<?= get_template_directory_uri() ?>/img/arrow.svg" alt=""></a>
+                <a href="#test-popup"  class="link-img fancybox">Retake the quiz <img src="<?= get_template_directory_uri() ?>/img/arrow.svg" alt=""></a>
                 <p>OR</p>
-                <a href="#" class="cursive">Speak to diamond expert</a>
+                <a href="<?= the_permalink(601) ?>" class="cursive">Speak to diamond expert</a>
             </div>
         <?php } ?>
 	</div>
@@ -135,7 +135,21 @@ if ($_GET['price']) {
 			</div>
 			<div class="content-wrap">
 				<div class="top">
-					<h1>All diamonds</h1>
+
+                    <?php if (!$_GET['price']) { ?>
+                        <h1>Select your <b>cREated diamond</b></h1>
+                        <p>Not sure where to begin?</p>
+                        <div class="btn-wrap">
+                            <a href="#test-popup" class="btn-default btn-border fancybox">Take our quiz <img src="<?= get_template_directory_uri() ?>/img/arrow.svg" alt=""></a>
+                        </div>
+
+                    <?php } else { ?>
+
+
+                        <h1>All diamonds</h1>
+
+
+                    <?php } ?>
                     <div style="display: none !important;">
                     <form class="woocommerce-ordering" method="get" >
                         <select name="orderby" class="orderby" aria-label="Shop order" style="display: none;">
@@ -253,9 +267,6 @@ if ($_GET['price']) {
                             $orderby =   'meta_value_num';
                             $order =    $_GET['orderby'] == 'price-desc' ? 'ASC' : 'DESC';
 
-
-
-
                         $args =  [
                             'post_type' => 'product',
                             'post_status' => 'publish',
@@ -361,7 +372,7 @@ if ($_GET['price']) {
 
                                 </ul>
                                 <div class="btn-wrap">
-                                    <a href="#" class="link">Speak to diamond expert <img src="<?= get_template_directory_uri() ?>/img/icon-9.svg" alt=""></a>
+                                    <a href="<?= the_permalink(601) ?>" class="link">Speak to diamond expert <img src="<?= get_template_directory_uri() ?>/img/icon-9.svg" alt=""></a>
                                     <a href="<?= $product->get_permalink() ?>" class="btn-default">SELECT</a>
                                 </div>
                             </div>

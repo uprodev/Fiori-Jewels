@@ -1,4 +1,26 @@
-<?php $wl = new YITH_WCWL_Wishlist(1);
+<?php
+
+//$wl = new YITH_WCWL_Wishlist(1);
+
+
+
+$default_wishlist = YITH_WCWL_Wishlist_Factory::get_default_wishlist();
+
+
+$count = yith_wcwl_count_all_products();
+
+
+
+
+if ( $count > 0) {
+    $items = $default_wishlist->get_items();
+
+    if ( ! empty( $items ) ) {
+        foreach ( $items as $item ) {
+            $wl[] = $item;
+        }
+    }
+}
 
 
 
@@ -23,7 +45,9 @@
                 </div>
             </div>
 
-            <?php foreach  ($wl->get_items() as $item) {
+            <?php
+            if ($count > 0)
+            foreach  ($wl as $item) {
                 $product_id = $item['product_id'];
                 $product = new WC_Product($product_id);
                 ?>
@@ -49,16 +73,17 @@
                     <p><?= $product->get_price_html() ?></p>
                 </div>
                 <div class="bottom">
-                    <a href="#" class="link">Send to a friend <img src="<?= get_template_directory_uri() ?>/img/icon-10-2.svg" alt=""></a>
+                    <a href="<?= $product->get_permalink() ?>" class="link">Send to a friend <img src="<?= get_template_directory_uri() ?>/img/icon-10-2.svg" alt=""></a>
                     <div class="btn-link-wrap">
                         <a class=" remove_from_wishlist" href="<?php echo esc_url( $item->get_remove_url() ); ?>"><img src="<?= get_template_directory_uri() ?>/img/icon-28-2.svg" alt="">Delete</a>
-                        <a class="add-to-cart" data-product_id="<?= $product_id ?>" href="#"><img src="<?= get_template_directory_uri() ?>/img/icon-28-3.svg" alt="">Add to bag</a>
+                        <a class="add-to-cart0" data-product_id="<?= $product_id ?>" href="<?= $product->get_permalink() ?>"><img src="<?= get_template_directory_uri() ?>/img/icon-28-3.svg" alt="">Add to bag</a>
                     </div>
                 </div>
                 <div class="btn-wrap-mob">
-                    <a href="#" class="btn-default add-to-cart" data-product_id="<?= $product_id ?>">ADD TO BAG</a>
 
-                    <a href="<?php echo esc_url( $item->get_remove_url() ); ?>" class="remove remove_from_wishlist btn-default btn-border" title="<?php echo esc_html( apply_filters( 'yith_wcwl_remove_product_wishlist_message_title', __( 'Remove this product', 'yith-woocommerce-wishlist' ) ) ); ?>">REMOVE</a>
+                    <a href="<?= $product->get_permalink() ?>" class="btn-default add-to-cart0" data-product_id="<?= $product_id ?>">ADD TO BAG</a>
+
+                     <a href="<?php echo esc_url( $item->get_remove_url() ); ?>" class="remove remove_from_wishlist btn-default btn-border" title="<?php echo esc_html( apply_filters( 'yith_wcwl_remove_product_wishlist_message_title', __( 'Remove this product', 'yith-woocommerce-wishlist' ) ) ); ?>">REMOVE</a>
 
 
                 </div>

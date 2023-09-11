@@ -37,7 +37,7 @@ do_action( 'woocommerce_before_main_content' );
             <div class="content">
                 <div class="top">
                     <h1><?php woocommerce_page_title(); ?></h1>
-                    <p><?php woocommerce_product_archive_description() ?></p>
+                    <p><?= get_queried_object()->description ?></p>
                 </div>
                 <div class="filter-line">
                     <div class="wrap wrap-1">
@@ -47,15 +47,7 @@ do_action( 'woocommerce_before_main_content' );
                         <div class="nice-select0">
 
                             <?php woocommerce_catalog_ordering() ?>
-<!--                            <span class="current">All</span>-->
-<!--                            <ul class="list">-->
-<!--                                <li class="option selected">All</li>-->
-<!--                                <li class="option ">New arrivals</li>-->
-<!--                                <li class="option">New to old </li>-->
-<!--                                <li class="option">Old to new</li>-->
-<!--                                <li class="option">Low to high </li>-->
-<!--                                <li class="option">High to low </li>-->
-<!--                            </ul>-->
+
                         </div>
 <!--                        <a href="#sort-popup" class="mob-fancybox fancybox">SORT BY:<span class="current">All</span></a>-->
                     </div>
@@ -66,7 +58,21 @@ do_action( 'woocommerce_before_main_content' );
                                     <a href="#" class="close-filter-block"><img src="<?= get_template_directory_uri() ?>/img/close-small.svg" alt=""></a>
                                 </div>
 
-                                <?= do_shortcode('[br_filters_group group_id=13686]') ?>
+                                <?php
+
+                                $filters = new WP_Query([
+                                    'post_type' => 'br_filters_group',
+                                    'post_status' => 'any',
+                                    'posts_per_page' => -1
+                                ]) ;
+
+                                if ($filters->posts)
+                                   foreach ($filters->posts as $filter) {
+
+                                       echo do_shortcode('[br_filters_group group_id='.$filter->ID.']');
+                                   }
+                                ?>
+
 
                                 <div class="btn-wrap">
 
@@ -81,7 +87,7 @@ do_action( 'woocommerce_before_main_content' );
                 <div class="share-line">
 
                     <div class="wrap">
-                        <div action="#" class="form">
+                        <div   class="form">
                             <?php global $shape; $shape = 1 ?>
                             <?= do_shortcode('[br_filter_single filter_id=17421]') ?>
                         </div>

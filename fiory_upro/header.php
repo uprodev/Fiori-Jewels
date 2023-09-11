@@ -249,7 +249,7 @@
       <?php endif; ?>
 
       <div class="btn-wrap right-btn">
-        <a href="<?php the_permalink(380) ?>" class="btn-like"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-4.svg" alt=""><span>1</span></a>
+        <a href="<?php the_permalink(380) ?>" class="btn-like"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-4.svg" alt=""><span><?= yith_wcwl_count_all_products() ?></span></a>
         <a href="#" class="btn-card"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-3.svg" alt="">
           <span><?= WC()->cart->get_cart_contents_count() ?></span>
         </a>
@@ -269,7 +269,7 @@
           </a>
         </div>
         <div class="calendar-wrap">
-          <a href="#">
+          <a href="<?php the_permalink(493) ?>">
             <img src="<?= get_stylesheet_directory_uri() ?>/img/icon-14.svg" alt="">
           </a>
         </div>
@@ -291,16 +291,12 @@
 
     <div class="right">
       <div class="item item-1">
-        <a href="#" class="btn-like"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-4.svg" alt=""><span></span></a>
-        <a href="#" class="btn-card"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-3.svg" alt=""><span></span></a>
+        <a href="<?php the_permalink(380) ?>" class="btn-like"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-4.svg" alt=""><span></span></a>
+        <a href="<?php the_permalink(10) ?>" class="btn-card"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-3.svg" alt=""><span></span></a>
       </div>
       <div class="item item-2">
-        <div class="nice-select">
-          <span class="current">AED</span>
-          <ul class="list">
-            <li class="option selected">AED</li>
-            <li class="option">USD</li>
-          </ul>
+        <div class="nice-select0">
+            <?= do_shortcode('[woo_multi_currency]') ?>
         </div>
       </div>
     </div>

@@ -444,18 +444,9 @@ jQuery(document).ready(function ($) {
       success: function (data) {
         $( document.body ).trigger( 'wc_fragment_refresh' );
         $('#add-product-cart').unblock()
-        $.fancybox.close();
 
-        if (width > 768) {
-          $.fancybox.open( $('#add-product-cart'), {
-            touch:false,
-            autoFocus:false,
-          });
-        } else {
-          that.addClass('btn-border-red');
-          that.find('span').text('В корзине');
-          that.closest('.fix-menu').find('.mob-sku').hide()
-        }
+
+
 
       },
     });
