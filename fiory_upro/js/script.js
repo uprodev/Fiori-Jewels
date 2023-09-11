@@ -743,10 +743,12 @@ jQuery(document).ready(function ($) {
   });
 
   /*col shopping*/
-  $(".btn-count-plus").click(function () {
+  $(document).on('click', '.btn-count-plus', function (e){
     var e = $(this).parent().find("input");
     return e.val(parseInt(e.val()) + 1), e.change(), !1
-  }), $(".btn-count-minus").click(function () {
+  })
+
+  $(document).on('click', '.btn-count-minus', function (e){
     var e = $(this).parent().find("input"), t = parseInt(e.val()) - 1;
     return t = t < 1 ? 1 : t, e.val(t), e.change(), !1
   });

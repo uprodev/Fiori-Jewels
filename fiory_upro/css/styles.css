@@ -6681,11 +6681,25 @@ footer .form-subscribe .wpcf7-form-control-wrap{
 .catalog-product .filter-block .bapf_sfilter.bapf_ckbox input[type=checkbox]{
   width: 10px;
   height: 10px;
+  padding: 1px;
   border: 1px solid #000;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   margin-right: 10px!important;
 }
+.catalog-product .filter-block .bapf_sfilter.bapf_ckbox input[type=checkbox]:checked:after{
+  display: none;
+}
+.catalog-product .filter-block .bapf_sfilter.bapf_ckbox input[type=checkbox]:checked{
+  background: #555;
+  background-clip: content-box;
+}
+
+.catalog-product .filter-line .wrap-2{
+  position: relative;
+  top: 7px;
+}
+
 .catalog-product .filter-block img {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -7004,5 +7018,17 @@ footer .form-subscribe .wpcf7-form-control-wrap{
   top: -2px;
 }
 
+.page-template-account main{
+  overflow: hidden;
+}
+
+p.error{
+  text-align: center!important;
+  color: red!important;
+}
+
+input.error{
+  border-color:red!important;
+}
 
 /*# sourceMappingURL=styles.css.map */
