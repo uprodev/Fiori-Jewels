@@ -7031,4 +7031,8 @@ input.error{
   border-color:red!important;
 }
 
+
+.shopping .item .col-wrap{
+  height: fit-content;
+}
 /*# sourceMappingURL=styles.css.map */

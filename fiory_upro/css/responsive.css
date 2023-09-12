@@ -498,12 +498,12 @@
           padding: 0 10px; }
         .menu-responsive .mob-menu > ul > li span {
           display: block;
-          width: 100%;
+          width: 40px;
           height: 40px;
           z-index: 2;
           position: absolute;
           top: 0;
-          left: 0; }
+          right: 0; }
           .menu-responsive .mob-menu > ul > li span:after {
             border-bottom: 2px solid #000;
             border-right: 2px solid #000;
@@ -1719,6 +1719,10 @@
     margin: 0;
   }
   .catalog-product .filter-line .wrap-2{
+  }
+
+  .shopping .item .col-wrap {
+    margin: 30px 0 0;
   }
   .test-popup .steps-wrap ul:before {
     left: 95px;
@@ -3225,7 +3229,9 @@
     width: 185px; }
 
   .shopping .item .price-wrap {
-    margin-top: -25px; }
+    position: relative;
+    left: 185px;
+    margin-top: -100px; }
 
   .shopping .item {
     padding: 24px 0 18px; }
@@ -3809,7 +3815,7 @@
     display: none;
   }
   header .mob-line .right a.btn-card span{
-    display: none;
+    right: -8px;
   }
 
   .default-text h3{
