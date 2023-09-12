@@ -1,4 +1,6 @@
-jQuery(document).ready(function ($) {
+  var initSliders
+
+  jQuery(document).ready(function ($) {
 
   /*select*/
   $('select').niceSelect();
@@ -510,33 +512,28 @@ jQuery(document).ready(function ($) {
 
 
   /*slider*/
-  var swiperP1 = new Swiper(".slider-p-1", {
-    effect: "fade",
 
-    scrollbar: {
-      el: ".swiper-scrollbar-1",
-      hide: false,
-      draggable: true,
-    },
-  });
-  var swiperP2 = new Swiper(".slider-p-2", {
-    effect: "fade",
+    initSliders = function() {
+      var count = $(".slider-p-3").length
+        if (count > 0) {
+          for(var i = 1; i < count+1; i++)
+          {
+            var swiperP3 = new Swiper('.slider__' + i, {
+              effect: "fade",
+              scrollbar: {
+                el: ' .swiper-scrollbar-'  + i,
+                hide: false,
+                draggable: true,
+              },
+            });
+          }
+        }
+      }
+    initSliders();
 
-    scrollbar: {
-      el: ".swiper-scrollbar-2",
-      hide: false,
-      draggable: true,
-    },
-  });
-  var swiperP3 = new Swiper(".slider-p-3", {
-    effect: "fade",
 
-    scrollbar: {
-      el: ".swiper-scrollbar-3",
-      hide: false,
-      draggable: true,
-    },
-  });
+
+
 
   /*show info product (catalog page)*/
   $(document).on('click', '.catalog .product-line .info', function (e){

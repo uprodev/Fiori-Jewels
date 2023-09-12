@@ -335,12 +335,12 @@ if ($_GET['price']) {
                                         </div>
                                     </figure>
                                     <div class="slider-wrap">
-                                        <div class="swiper slider-p-3">
+                                        <div class="swiper slider-p-3 slider__<?= $loop ?>">
                                             <?php get_template_part('parts/hand'); ?>
                                         </div>
                                         <div class="scroll-wrap">
                                             <p>Lighter</p>
-                                            <div class="swiper-scrollbar swiper-scrollbar-3"></div>
+                                            <div class="swiper-scrollbar swiper-scrollbar-<?= $loop ?>"></div>
                                             <p>Darker</p>
                                         </div>
                                     </div>

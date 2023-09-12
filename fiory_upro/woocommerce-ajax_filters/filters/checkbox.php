@@ -39,28 +39,26 @@ if ($template_content['template']['attributes']['data-taxonomy']  == 'pa_shape')
 
 }
 
-
+$img = $before = '';
 $terms_content = array();
 foreach( $terms as $i => $term ) {
-
+    $img = $before = '';
     if ($term->taxonomy  == 'pa_shape') {
         $img = get_field('icon', $term);
 
         if ($img)
-        $before = '<span>
-            <img src="'.$img['url'].'">
-            </span>';
+            $before = '<span>
+                <img src="'.$img['url'].'">
+                </span>';
     }
 
     $post_id = get_the_id();
 
 
-
-
     if (get_the_id() == 570 && $term->taxonomy == 'pa_shape')
-        $term_name = '';
+        $term_name = $img ? '' : $term->name;
     else
-        $term_name = $shape ? '' : $term->name;
+        $term_name = $shape&&$img ? '' : $term->name;
 
     $element_unique = $filter_unique_class.'_'.$term->term_id;
     $terms_content['element_'.$i] = apply_filters('BeRocket_AAPF_template_single_item', array(
