@@ -207,29 +207,36 @@
 
                         </div>
 
-                        <?php if( have_rows('gallery') ): ?>
+                        <?php if( $gallery = get_sub_field('gallery') ):
+
+
+                            ?>
 
                           <div class="img-wrap">
 
-                            <?php while( have_rows('gallery') ): the_row(); ?>
+                            <?php foreach( $gallery as $product):
+                            $product = new WC_Product($product->ID)?>
 
-                              <?php if (get_sub_field('image') || get_sub_field('text')): ?>
+
                               <div class="img">
 
-                                <?php if ($field = get_sub_field('image')): ?>
-                                  <figure>
-                                    <?= wp_get_attachment_image($field['ID'], 'full') ?>
-                                  </figure>
-                                <?php endif ?>
 
-                                <?php if ($field = get_sub_field('text')): ?>
-                                  <p><?= $field ?></p>
-                                <?php endif ?>
+                                  <figure>
+                                   <a href="<?= $product->get_permalink()?>"><?= $product->get_image('large')?></a>
+                                  </figure>
+
+
+
+                                  <p>
+                                      <a href="<?= $product->get_permalink()?>"><?= $product->get_title()?>
+                                      </a>
+                                  </p>
+
 
                               </div>
-                            <?php endif ?>
 
-                          <?php endwhile; ?>
+
+                          <?php endforeach; ?>
 
                         </div>
 
@@ -326,12 +333,8 @@
       <div class="btn-search">
         <a href="#"><img src="<?= get_stylesheet_directory_uri() ?>/img/icon-2.svg" alt=""><?php _e('Search', 'Fiori') ?></a>
       </div>
-      <div class="nice-select">
-        <span class="current">AED</span>
-        <ul class="list">
-          <li class="option selected">AED</li>
-          <li class="option">USD</li>
-        </ul>
+      <div class="nice-select0">
+          <?= do_shortcode('[woo_multi_currency]') ?>
       </div>
     </div>
 
@@ -345,63 +348,65 @@
             <li>
 
               <?php if ($field = get_sub_field('link')): ?>
-                <a href="<?= $field['url'] ?>"<?php if($field['target']) echo ' target="_blank"' ?>><?= $field['title'] ?></a>
+                <a <?php if(get_sub_field('is_popup')) echo ' class="fancybox"' ?> href="<?= $field['url'] ?>"<?php if($field['target']) echo ' target="_blank"' ?>><?= $field['title'] ?></a>
               <?php endif ?>
 
-              <span></span>
-              <div class="sub-menu">
-
-                <?php if ($field = get_sub_field('title')): ?>
-                  <h5><?= $field ?></h5>
-                <?php endif ?>
-
                 <?php if( have_rows('sub_menu') ): ?>
+                  <span></span>
+                  <div class="sub-menu">
 
-                  <ul>
+                    <?php if ($field = get_sub_field('title')): ?>
+                      <h5><?= $field ?></h5>
+                    <?php endif ?>
 
-                    <?php while( have_rows('sub_menu') ): the_row(); ?>
 
-                      <?php if ($field = get_sub_field('title')): ?>
-                        <li>
-                          <h6><?= $field ?></h6>
-                        </li>
-                      <?php endif ?>
 
-                      <?php if( have_rows('menu') ): ?>
-                        <?php while( have_rows('menu') ): the_row(); ?>
+                      <ul>
 
-                          <?php if ($link = get_sub_field('link')): ?>
+                        <?php while( have_rows('sub_menu') ): the_row(); ?>
+
+                          <?php if ($field = get_sub_field('title')): ?>
                             <li>
-                              <a href="<?= $link['url'] ?>"<?php if($link['target']) echo ' target="_blank"' ?>>
-
-                                <?php if ($icon = get_sub_field('icon')): ?>
-                                  <?= wp_get_attachment_image($icon['ID'], 'full') ?>
-                                <?php endif ?>
-
-                                <?php if (get_sub_field('is_bold')): ?>
-                                  <b>
-                                  <?php endif ?>
-
-                                  <?= $link['title'] ?>
-
-                                  <?php if (get_sub_field('is_bold')): ?>
-                                  </b>
-                                <?php endif ?>
-
-                              </a>
+                              <h6><?= $field ?></h6>
                             </li>
                           <?php endif ?>
 
+                          <?php if( have_rows('menu') ): ?>
+                            <?php while( have_rows('menu') ): the_row(); ?>
+
+                              <?php if ($link = get_sub_field('link')): ?>
+                                <li>
+                                  <a href="<?= $link['url'] ?>"<?php if($link['target']) echo ' target="_blank"' ?>>
+
+                                    <?php if ($icon = get_sub_field('icon')): ?>
+                                      <?= wp_get_attachment_image($icon['ID'], 'full') ?>
+                                    <?php endif ?>
+
+                                    <?php if (get_sub_field('is_bold')): ?>
+                                      <b>
+                                      <?php endif ?>
+
+                                      <?= $link['title'] ?>
+
+                                      <?php if (get_sub_field('is_bold')): ?>
+                                      </b>
+                                    <?php endif ?>
+
+                                  </a>
+                                </li>
+                              <?php endif ?>
+
+                            <?php endwhile; ?>
+                          <?php endif; ?>
+
                         <?php endwhile; ?>
-                      <?php endif; ?>
 
-                    <?php endwhile; ?>
+                      </ul>
 
-                  </ul>
 
+
+                  </div>
                 <?php endif; ?>
-
-              </div>
             </li>
 
           <?php endwhile; ?>
