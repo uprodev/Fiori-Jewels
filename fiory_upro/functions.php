@@ -112,3 +112,5 @@ function my_breadcrumb_title_swapper($title, $type, $id)
     }
     return $title;
 }
+
+

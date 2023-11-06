@@ -1,73 +1,81 @@
-<?php if( have_rows('showrooms_6') ): ?>
+<?php
 
-	<section class="showrooms">
-		<div class="content-width">
 
-			<?php if ($field = get_field('title_6')): ?>
-				<div class="title">
-					<h2><?= $field ?></h2>
-				</div>
-			<?php endif ?>
-			
-			<div class="content">
-				<div class="left">
-					<ul class="accordion">
+if ($args['post_id'])
+    $post_id = 20;
+else
+    $post_id = get_the_id();
 
-						<?php while( have_rows('showrooms_6') ): the_row(); ?>
+if( have_rows('showrooms_6', $post_id) ): ?>
 
-							<li class="accordion-item<?php if(get_row_index() == 1) echo ' is-active' ?>">
+    <section class="showrooms">
+        <div class="content-width">
 
-								<?php if ($field = get_sub_field('title')): ?>
-									<div class="accordion-thumb">
-										<h5><?= $field ?></h5>
-									</div>
-								<?php endif ?>
-								
-								<div class="accordion-panel">
-									<div class="wrap">
+            <?php if ($field = get_field('title_6', $post_id)): ?>
+                <div class="<?= $args['post_id'] ? '' : 'title' ?>">
+                    <h2><?= $field ?></h2>
+                </div>
+            <?php endif ?>
 
-										<?php if ($field = get_sub_field('address')): ?>
-											<div class="item">
-												<h6><?php _e('Address', 'Fiori') ?></h6>
-												<p><?= $field ?></p>
-											</div>
-										<?php endif ?>
+            <div class="content">
+                <div class="left">
+                    <ul class="accordion">
 
-										<?php if ($field = get_sub_field('phone')): ?>
-											<div class="item">
-												<h6><?php _e('Phone', 'Fiori') ?></h6>
-												<p><a href="tel:+<?= preg_replace('/[^0-9]/', '', $field) ?>"><?= $field ?></a></p>
-											</div>
-										<?php endif ?>
+                        <?php while( have_rows('showrooms_6', $post_id) ): the_row(); ?>
 
-										<?php if ($field = get_sub_field('image')): ?>
-											<div class="img-wrap">
-												<?= wp_get_attachment_image($field['ID'], 'full') ?>
-											</div>
-										<?php endif ?>
-										
-									</div>
+                            <li class="accordion-item<?php if(get_row_index() == 1) echo ' is-active' ?>">
 
-								</div>
-							</li>
+                                <?php if ($field = get_sub_field('title')): ?>
+                                    <div class="accordion-thumb">
+                                        <h5><?= $field ?></h5>
+                                    </div>
+                                <?php endif ?>
 
-						<?php endwhile; ?>
+                                <div class="accordion-panel">
+                                    <div class="wrap">
 
-					</ul>
-				</div>
-				<figure>
+                                        <?php if ($field = get_sub_field('address')): ?>
+                                            <div class="item">
+                                                <h6><?php _e('Address', 'Fiori') ?></h6>
+                                                <p><?= $field ?></p>
+                                            </div>
+                                        <?php endif ?>
 
-					<?php while( have_rows('showrooms_6') ): the_row(); ?>
+                                        <?php if ($field = get_sub_field('phone')): ?>
+                                            <div class="item">
+                                                <h6><?php _e('Phone', 'Fiori') ?></h6>
+                                                <p><a href="tel:+<?= preg_replace('/[^0-9]/', '', $field) ?>"><?= $field ?></a></p>
+                                            </div>
+                                        <?php endif ?>
 
-						<?php if ($field = get_sub_field('image')): ?>
-							<?= wp_get_attachment_image($field['ID'], 'full', false, array('class' => 'img-' . get_row_index())) ?>
-						<?php endif ?>
+                                        <?php if ($field = get_sub_field('image')): ?>
+                                            <div class="img-wrap">
+                                                <?= wp_get_attachment_image($field['ID'], 'full') ?>
+                                            </div>
+                                        <?php endif ?>
 
-					<?php endwhile; ?>
-					
-				</figure>
-			</div>
-		</div>
-	</section>
+                                    </div>
 
-	<?php endif; ?>
+                                </div>
+                            </li>
+
+                        <?php endwhile; ?>
+
+                    </ul>
+                </div>
+                <figure>
+
+                    <?php while( have_rows('showrooms_6', $post_id) ): the_row(); ?>
+
+                        <?php if ($field = get_sub_field('image')): ?>
+                            <?= wp_get_attachment_image($field['ID'], 'full', false, array('class' => 'img-' . get_row_index())) ?>
+                        <?php endif ?>
+
+                    <?php endwhile; ?>
+
+                </figure>
+            </div>
+        </div>
+    </section>
+
+<?php endif; ?>

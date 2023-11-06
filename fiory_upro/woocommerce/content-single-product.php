@@ -20,6 +20,8 @@ defined( 'ABSPATH' ) || exit;
 global $product;
 
 
+//print_r(get_metadata('post', get_the_id()));
+
 
 if ( post_password_required() ) {
 	echo get_the_password_form(); // WPCS: XSS ok.

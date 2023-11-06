@@ -25,6 +25,7 @@ if ( ! function_exists( 'wc_get_gallery_image_html' ) ) {
 global $product;
 
 $attachment_ids = $product->get_gallery_image_ids();
+$video = get_field('product_video');
 $image = get_the_post_thumbnail_url(get_the_id(), 'large')  ?: wc_placeholder_img_src();
 
 ?>
@@ -35,6 +36,11 @@ $image = get_the_post_thumbnail_url(get_the_id(), 'large')  ?: wc_placeholder_im
             <a href="<?= get_the_post_thumbnail_url(get_the_id(), 'full') ?>" data-fancybox="gallery">
                 <img src="<?= $image ?>" alt="">
             </a>
+            <?php if ($video)  { ?>
+                <a href="<?=  $video['url'] ?>" data-fancybox="video">
+                    <i class="fa fa-play-circle"></i>
+                </a>
+            <?php } ?>
         </figure>
         <?php
         if ( $attachment_ids && $product->get_image_id() ) {
@@ -62,6 +68,11 @@ $image = get_the_post_thumbnail_url(get_the_id(), 'large')  ?: wc_placeholder_im
         <?php } ?>
     </div>
     <div class="mob-block">
+        <?php if ($video)  { ?>
+            <a href="<?=  $video['url'] ?>" data-fancybox="video">
+                <i class="fa fa-play-circle"></i>
+            </a>
+        <?php } ?>
         <div class="swiper mob-product-img">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">

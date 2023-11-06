@@ -13,7 +13,8 @@ $actions = [
     'add_ticket',
     'add_to_fav',
     'add_to_cart',
-    'filter_quiz'
+    'filter_quiz',
+    'video_list'
 
 ];
 foreach ($actions as $action) {
@@ -450,4 +451,24 @@ function filter_quiz() {
         'data' => $_GET
     ]);
 }
+
+function video_list() {
+    $q = new WP_Query([
+        'post_type' => 'product',
+        'posts_per_page' => -1
+    ]);
+    $product = new WC_Product(get_the_id());
+    $sku = $product->get_sku();
+    $video = $product->get_meta('_woodmart_product_video');
+
+    while ($q->have_posts()) {
+        $q->the_post();
+        $data[$sku] = $video;
+    }
+
+    wp_send_json([
+        'data' => $data
+    ]);
+}
+
 
